@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 type VerifyResponse = {
   success: boolean;
@@ -10,10 +9,13 @@ type VerifyResponse = {
   orderId?: string;
 };
 
-export default function PaymentCallbackClient() {
-  const searchParams = useSearchParams();
-  const reference = searchParams.get("reference");
+type PaymentCallbackClientProps = {
+  reference: string;
+};
 
+export default function PaymentCallbackClient({
+  reference,
+}: PaymentCallbackClientProps) {
   const [isVerifying, setIsVerifying] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState("Verifying your payment...");
@@ -66,7 +68,7 @@ export default function PaymentCallbackClient() {
               : "bg-red-100 text-red-700"
           }`}
         >
-          {isVerifying ? "…" : isSuccess ? "✓" : "!"}
+          {isVerifying ? "..." : isSuccess ? "✓" : "!"}
         </div>
 
         <p className="mt-8 font-black text-[#D6A84F]">
