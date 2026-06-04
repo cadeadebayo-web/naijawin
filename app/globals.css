@@ -1,14 +1,27 @@
 @import "tailwindcss";
 
+:root {
+  --naijawin-green: #052e24;
+  --naijawin-gold: #d6a84f;
+  --naijawin-cream: #faf7ef;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background: #faf7ef;
+  background: var(--naijawin-cream);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: var(--naijawin-gold);
+  color: var(--naijawin-green);
 }
