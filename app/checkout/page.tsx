@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
@@ -68,7 +68,7 @@ function formatDate(dateValue: string | null) {
   });
 }
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const searchParams = useSearchParams();
 
   const competitionSlug = searchParams.get("competition") || "toyota-corolla";
@@ -705,3 +705,24 @@ export default function CheckoutPage() {
     </main>
   );
 }
+export default function CheckoutPage() {
+    return (
+      <Suspense
+        fallback={
+          <main className="min-h-screen bg-[#FAF7EF] px-5 py-20 text-[#111827]">
+            <section className="mx-auto max-w-4xl rounded-3xl bg-white p-8 text-center shadow-xl">
+              <h1 className="text-4xl font-black text-[#052E24]">
+                Loading checkout...
+              </h1>
+  
+              <p className="mt-3 text-gray-600">
+                Please wait while we prepare your checkout page.
+              </p>
+            </section>
+          </main>
+        }
+      >
+        <CheckoutContent />
+      </Suspense>
+    );
+  }
