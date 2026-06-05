@@ -73,6 +73,62 @@ function calculateSoldPercentage(entriesSold: number, maxEntries: number) {
   return Math.round((entriesSold / maxEntries) * 100);
 }
 
+function getCuratedCompetitions(competitions: Competition[], limit: number) {
+  const curated: Competition[] = [];
+  const usedCategories = new Set<string>();
+
+  competitions.forEach((competition) => {
+    const categoryKey = competition.category.toLowerCase().trim();
+
+    if (!usedCategories.has(categoryKey) && curated.length < limit) {
+      curated.push(competition);
+      usedCategories.add(categoryKey);
+    }
+  });
+
+  competitions.forEach((competition) => {
+    if (
+      curated.length < limit &&
+      !curated.some((item) => item.id === competition.id)
+    ) {
+      curated.push(competition);
+    }
+  });
+
+  return curated.slice(0, limit);
+}
+
+function getPrizeEmoji(category: string, title: string) {
+  const prizeText = `${category} ${title}`.toLowerCase();
+
+  if (prizeText.includes("car") || prizeText.includes("toyota")) {
+    return "🚗";
+  }
+
+  if (prizeText.includes("house") || prizeText.includes("home")) {
+    return "🏠";
+  }
+
+  if (prizeText.includes("cash") || prizeText.includes("money")) {
+    return "💰";
+  }
+
+  if (
+    prizeText.includes("phone") ||
+    prizeText.includes("iphone") ||
+    prizeText.includes("gadget") ||
+    prizeText.includes("electronics")
+  ) {
+    return "📱";
+  }
+
+  if (prizeText.includes("holiday") || prizeText.includes("travel")) {
+    return "✈️";
+  }
+
+  return "🎁";
+}
+
 export default async function Home() {
   const { data: competitions, error: competitionsError } = await supabase
     .from("competitions")
@@ -115,6 +171,38 @@ export default async function Home() {
       )
     : 0;
 
+  const mobileHeroCandidateMap = new Map<string, Competition>();
+
+  [
+    ...activeCompetitions.filter((item) => item.is_featured).slice(0, 2),
+    ...activeCompetitions.slice(-2),
+    ...activeCompetitions,
+  ].forEach((competition) => {
+    mobileHeroCandidateMap.set(competition.id, competition);
+  });
+
+  const mobileHeroShowcaseBase = Array.from(
+    mobileHeroCandidateMap.values()
+  ).slice(0, 4);
+
+  const mobileHeroShowcase = mobileHeroShowcaseBase.length
+    ? Array.from(
+        { length: 4 },
+        (_, index) =>
+          mobileHeroShowcaseBase[index % mobileHeroShowcaseBase.length]
+      )
+    : [];
+
+  const mobileDiscoveryCompetitions = getCuratedCompetitions(
+    activeCompetitions,
+    4
+  );
+
+  const mobileTopPrizeCompetitions = getCuratedCompetitions(
+    activeCompetitions.filter((competition) => competition.ticket_price >= 700),
+    4
+  );
+
   return (
     <main className="min-h-screen bg-[#FAF7EF] text-[#111827]">
       <section className="relative overflow-hidden bg-[#052E24] text-white">
@@ -124,106 +212,133 @@ export default async function Home() {
           <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#D6A84F]/10 blur-3xl" />
         </div>
 
-        <div className="relative z-10 px-4 pb-10 pt-7 md:hidden">
-          {featuredCompetition ? (
+        <div className="relative z-10 px-4 pb-8 pt-6 md:hidden">
+          {mobileHeroShowcase.length > 0 ? (
             <div className="naijawin-mobile-hero-card relative overflow-hidden rounded-[2.25rem] border border-white/15 bg-[linear-gradient(155deg,#063729_0%,#052E24_48%,#0D4C39_100%)] p-4 shadow-[0_28px_90px_rgba(0,0,0,0.38)]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_14%,rgba(214,168,79,0.42),transparent_28%),radial-gradient(circle_at_20%_78%,rgba(255,255,255,0.14),transparent_32%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_10%,rgba(214,168,79,0.44),transparent_28%),radial-gradient(circle_at_12%_86%,rgba(255,255,255,0.14),transparent_32%)]" />
               <div className="naijawin-mobile-light-streak absolute -left-20 top-10 h-16 w-[150%] -rotate-12 bg-white/10 blur-xl" />
               <div className="absolute -right-16 top-24 h-40 w-40 rounded-full bg-[#D6A84F]/25 blur-3xl" />
               <div className="absolute -bottom-16 left-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-[#D6A84F]/15 blur-3xl" />
 
               <div className="relative z-30 flex items-center justify-between gap-3">
                 <div className="rounded-full bg-[#D6A84F] px-4 py-2 text-[10px] font-black uppercase tracking-[0.23em] text-[#052E24] shadow-[0_14px_34px_rgba(214,168,79,0.32)]">
-                  Featured Competition
+                  Prize Showcase
                 </div>
 
                 <div className="rounded-full border border-white/20 bg-white/12 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white backdrop-blur">
-                  {featuredSoldPercentage}% Sold
+                  Auto Reveal
                 </div>
               </div>
 
-              <div className="pointer-events-none absolute left-4 top-[5.2rem] z-20 flex rotate-[-8deg] items-center gap-2 rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur naijawin-prize-float-a">
+              <div className="pointer-events-none absolute left-4 top-[5.3rem] z-20 flex rotate-[-8deg] items-center gap-2 rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur naijawin-prize-float-a">
                 🚗 Cars
               </div>
               <div className="pointer-events-none absolute right-5 top-[7.2rem] z-20 flex rotate-[7deg] items-center gap-2 rounded-2xl bg-[#D6A84F] px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24] shadow-lg naijawin-prize-float-b">
                 💰 Cash
               </div>
-              <div className="pointer-events-none absolute bottom-[13.8rem] right-4 z-20 hidden rotate-[-6deg] rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur min-[390px]:block naijawin-prize-float-c">
-                📱 Gadgets
+              <div className="pointer-events-none absolute bottom-[11.5rem] right-4 z-20 rotate-[-6deg] rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur naijawin-prize-float-c">
+                🏠 Homes
               </div>
 
-              <div className="relative z-10 mt-5 rounded-[2rem] border border-[#D6A84F]/18 bg-[#052E24]/35 p-3 shadow-inner">
-                <div className="relative h-[315px] overflow-hidden rounded-[1.65rem] border border-white/15 bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.22),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]">
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#052E24] via-[#052E24]/86 to-transparent" />
-                  <div className="absolute left-1/2 top-20 h-40 w-40 -translate-x-1/2 rounded-full border border-dashed border-[#D6A84F]/28" />
-                  <div className="naijawin-pop-1 absolute right-8 top-10 text-5xl text-[#D6A84F] drop-shadow-lg">
-                    ✦
-                  </div>
-                  <div className="naijawin-pop-2 absolute left-8 top-16 h-6 w-6 rounded-full bg-[#D6A84F]/80 shadow-lg" />
+              <div className="relative z-10 mt-5 min-h-[465px] overflow-hidden rounded-[2rem] border border-[#D6A84F]/18 bg-[#052E24]/35 p-3 shadow-inner">
+                {mobileHeroShowcase.map((competition, index) => {
+                  const soldPercentage = calculateSoldPercentage(
+                    competition.entries_sold,
+                    competition.max_entries
+                  );
 
-                  <div className="naijawin-car-splash absolute inset-x-[-10%] bottom-14 top-8 z-20">
-                    <Image
-                      src={
-                        featuredCompetition.image_url ||
-                        "/images/toyota-corolla.png"
-                      }
-                      alt={featuredCompetition.title}
-                      fill
-                      priority
-                      sizes="100vw"
-                      className="object-contain object-center drop-shadow-[0_34px_54px_rgba(0,0,0,0.58)]"
-                    />
-                  </div>
+                  return (
+                    <article
+                      key={`${competition.id}-${index}`}
+                      className="naijawin-mobile-showcase-slide absolute inset-3 overflow-hidden rounded-[1.65rem] border border-white/15 bg-[radial-gradient(circle_at_50%_38%,rgba(255,255,255,0.24),transparent_35%),linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.02))]"
+                      style={{ animationDelay: `${index * 4}s` }}
+                    >
+                      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#052E24] via-[#052E24]/88 to-transparent" />
+                      <div className="absolute left-1/2 top-20 h-40 w-40 -translate-x-1/2 rounded-full border border-dashed border-[#D6A84F]/28" />
+                      <div className="naijawin-pop-1 absolute right-8 top-10 text-5xl text-[#D6A84F] drop-shadow-lg">
+                        ✦
+                      </div>
+                      <div className="naijawin-pop-2 absolute left-8 top-16 h-6 w-6 rounded-full bg-[#D6A84F]/80 shadow-lg" />
 
-                  <div className="absolute bottom-4 left-4 right-4 z-30">
-                    <div className="naijawin-mobile-shimmer mx-auto rounded-full bg-[#D6A84F] px-5 py-3 text-center text-[11px] font-black uppercase tracking-[0.24em] text-[#052E24] shadow-[0_18px_42px_rgba(214,168,79,0.45)]">
-                      Your Chance To Win
-                    </div>
-                  </div>
-                </div>
+                      <div className="relative z-20 flex items-center justify-between gap-3 p-4">
+                        <span className="rounded-full bg-[#D6A84F] px-3 py-2 text-[9px] font-black uppercase tracking-[0.2em] text-[#052E24]">
+                          {competition.category}
+                        </span>
+
+                        <span className="rounded-full bg-white/12 px-3 py-2 text-[9px] font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                          {soldPercentage}% Sold
+                        </span>
+                      </div>
+
+                      <div className="naijawin-car-splash absolute inset-x-[-11%] top-12 h-[255px]">
+                        <Image
+                          src={
+                            competition.image_url ||
+                            "/images/toyota-corolla.png"
+                          }
+                          alt={competition.title}
+                          fill
+                          priority={index === 0}
+                          sizes="100vw"
+                          className="object-contain object-center drop-shadow-[0_34px_54px_rgba(0,0,0,0.58)]"
+                        />
+                      </div>
+
+                      <div className="absolute bottom-4 left-4 right-4 z-30 rounded-[1.35rem] border border-white/14 bg-white/95 p-4 text-[#052E24] shadow-[0_18px_48px_rgba(0,0,0,0.28)] backdrop-blur">
+                        <div className="mb-2 flex items-center justify-between gap-2">
+                          <span className="text-2xl">
+                            {getPrizeEmoji(competition.category, competition.title)}
+                          </span>
+                          <span className="rounded-full bg-[#D6A84F]/18 px-3 py-1 text-xs font-black">
+                            {formatPrice(competition.ticket_price)}
+                          </span>
+                        </div>
+
+                        <h2 className="line-clamp-2 text-xl font-black leading-tight text-[#052E24]">
+                          {competition.title}
+                        </h2>
+
+                        <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                          <div className="rounded-2xl bg-[#FAF7EF] px-3 py-2">
+                            <p className="text-gray-500">Draw</p>
+                            <p className="font-black text-[#052E24]">
+                              {formatShortDate(competition.draw_date)}
+                            </p>
+                          </div>
+
+                          <div className="rounded-2xl bg-[#FAF7EF] px-3 py-2">
+                            <p className="text-gray-500">Entries</p>
+                            <p className="font-black text-[#052E24]">
+                              {competition.max_entries.toLocaleString()}
+                            </p>
+                          </div>
+                        </div>
+
+                        <Link
+                          href={`/competitions/${competition.slug}`}
+                          className="naijawin-mobile-shimmer mt-3 block rounded-full px-5 py-3 text-center text-[11px] font-black uppercase tracking-[0.22em] text-[#052E24] shadow-[0_18px_42px_rgba(214,168,79,0.42)] transition active:scale-[0.98]"
+                        >
+                          Your Chance To Win
+                        </Link>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
 
-              <div className="relative z-20 mt-4 rounded-[1.75rem] border border-white/15 bg-white/95 p-5 text-[#052E24] shadow-[0_20px_60px_rgba(0,0,0,0.26)] backdrop-blur">
-                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                  <span className="rounded-full bg-[#052E24]/7 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[#052E24]">
-                    {featuredCompetition.category}
-                  </span>
-
-                  <span className="rounded-full bg-[#D6A84F]/18 px-3 py-1 text-xs font-black text-[#052E24]">
-                    {formatPrice(featuredCompetition.ticket_price)} per entry
-                  </span>
+              <div className="relative z-30 mt-4 grid grid-cols-3 gap-2 text-center text-[11px]">
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-2 py-3 backdrop-blur">
+                  <p className="font-black text-[#D6A84F]">Secure</p>
+                  <p className="mt-0.5 text-white/65">Payments</p>
                 </div>
-
-                <h2 className="text-[1.7rem] font-black leading-tight text-[#052E24]">
-                  Win Life-Changing Prizes
-                </h2>
-
-                <p className="mt-2 text-sm leading-6 text-gray-600">
-                  Cars, cash, gadgets, homes and luxury rewards — enter securely
-                  and follow transparent winner announcements.
-                </p>
-
-                <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px]">
-                  <div className="rounded-2xl bg-[#FAF7EF] px-2 py-3">
-                    <p className="font-black text-[#052E24]">Secure</p>
-                    <p className="mt-0.5 text-gray-500">Payments</p>
-                  </div>
-                  <div className="rounded-2xl bg-[#FAF7EF] px-2 py-3">
-                    <p className="font-black text-[#052E24]">Verified</p>
-                    <p className="mt-0.5 text-gray-500">Winners</p>
-                  </div>
-                  <div className="rounded-2xl bg-[#FAF7EF] px-2 py-3">
-                    <p className="font-black text-[#052E24]">Live</p>
-                    <p className="mt-0.5 text-gray-500">Draws</p>
-                  </div>
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-2 py-3 backdrop-blur">
+                  <p className="font-black text-[#D6A84F]">Verified</p>
+                  <p className="mt-0.5 text-white/65">Winners</p>
                 </div>
-
-                <Link
-                  href={`/competitions/${featuredCompetition.slug}`}
-                  className="mt-5 block rounded-full bg-[#D6A84F] px-7 py-4 text-center text-sm font-black text-[#052E24] shadow-[0_18px_42px_rgba(214,168,79,0.35)] transition active:scale-[0.98]"
-                >
-                  Enter Now & Win
-                </Link>
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-2 py-3 backdrop-blur">
+                  <p className="font-black text-[#D6A84F]">Live</p>
+                  <p className="mt-0.5 text-white/65">Draws</p>
+                </div>
               </div>
             </div>
           ) : (
@@ -243,13 +358,13 @@ export default async function Home() {
               Nigeria&apos;s premium prize competition platform
             </p>
 
-            <h1 className="text-[2.75rem] font-black leading-[1.03] tracking-tight text-white">
-              Win Cars, Cash, Gadgets & Dream Prizes.
+            <h1 className="text-[2.6rem] font-black leading-[1.03] tracking-tight text-white">
+              Win Cars, Cash, Homes & Dream Prizes.
             </h1>
 
             <p className="mt-4 text-base leading-7 text-white/80">
-              Enter exciting competitions from as little as ₦300. Secure local
-              payments, transparent draws and verified winners.
+              Explore multiple prize categories, enter securely, and follow
+              transparent winner announcements.
             </p>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
@@ -471,9 +586,176 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="bg-[#FAF7EF] px-4 py-10 md:hidden">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="font-black text-[#D6A84F]">Enter Now & Win</p>
+            <h2 className="mt-1 text-3xl font-black leading-tight text-[#052E24]">
+              Win Life-Changing Prizes
+            </h2>
+          </div>
+
+          <Link
+            href="/competitions"
+            className="shrink-0 rounded-full bg-[#052E24] px-4 py-2 text-xs font-black text-white"
+          >
+            View All
+          </Link>
+        </div>
+
+        {competitionsError && (
+          <div className="rounded-3xl bg-red-50 p-5 text-sm font-bold text-red-700">
+            {competitionsError.message}
+          </div>
+        )}
+
+        {!competitionsError && mobileDiscoveryCompetitions.length > 0 && (
+          <div className="grid gap-4">
+            {mobileDiscoveryCompetitions.map((competition) => {
+              const soldPercentage = calculateSoldPercentage(
+                competition.entries_sold,
+                competition.max_entries
+              );
+
+              return (
+                <article
+                  key={competition.id}
+                  className="overflow-hidden rounded-[1.8rem] border border-white bg-white shadow-[0_18px_45px_rgba(5,46,36,0.12)]"
+                >
+                  <div className="relative h-48 overflow-hidden bg-[#052E24]">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,rgba(214,168,79,0.28),transparent_32%)]" />
+                    <Image
+                      src={competition.image_url || "/images/toyota-corolla.png"}
+                      alt={competition.title}
+                      fill
+                      sizes="100vw"
+                      className="object-contain object-center p-3 drop-shadow-[0_22px_38px_rgba(0,0,0,0.34)]"
+                    />
+                    <div className="absolute left-4 top-4 rounded-full bg-[#D6A84F] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24]">
+                      {competition.category}
+                    </div>
+                  </div>
+
+                  <div className="p-5">
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      <span className="text-2xl">
+                        {getPrizeEmoji(competition.category, competition.title)}
+                      </span>
+                      <span className="rounded-full bg-[#FAF7EF] px-3 py-1.5 text-xs font-black text-[#052E24]">
+                        {formatPrice(competition.ticket_price)} per entry
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-black leading-tight text-[#052E24]">
+                      {competition.title}
+                    </h3>
+
+                    <div className="mt-4">
+                      <div className="mb-2 flex justify-between text-xs text-gray-500">
+                        <span>Sold</span>
+                        <span className="font-black text-[#052E24]">
+                          {soldPercentage}%
+                        </span>
+                      </div>
+                      <div className="h-2.5 overflow-hidden rounded-full bg-[#E8E2D4]">
+                        <div
+                          className="h-full rounded-full bg-[#D6A84F]"
+                          style={{ width: `${soldPercentage}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <Link
+                      href={`/competitions/${competition.slug}`}
+                      className="mt-5 block rounded-full bg-[#052E24] px-5 py-3.5 text-center text-sm font-black text-white transition active:scale-[0.98]"
+                    >
+                      Enter Competition
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      <section className="bg-white px-4 py-10 md:hidden">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="font-black text-[#D6A84F]">Curated High-Value Picks</p>
+            <h2 className="mt-1 text-3xl font-black leading-tight text-[#052E24]">
+              Browse Top Prizes
+            </h2>
+          </div>
+
+          <Link
+            href="/competitions"
+            className="shrink-0 rounded-full border border-[#052E24]/15 px-4 py-2 text-xs font-black text-[#052E24]"
+          >
+            View All
+          </Link>
+        </div>
+
+        {!competitionsError && mobileTopPrizeCompetitions.length === 0 && (
+          <div className="rounded-3xl bg-[#FAF7EF] p-6 text-center">
+            <h3 className="text-2xl font-black text-[#052E24]">
+              Top prizes coming soon.
+            </h3>
+            <p className="mt-2 text-sm text-gray-600">
+              Competitions from ₦700 and above will appear here.
+            </p>
+          </div>
+        )}
+
+        {!competitionsError && mobileTopPrizeCompetitions.length > 0 && (
+          <div className="flex gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {mobileTopPrizeCompetitions.map((competition) => (
+              <article
+                key={competition.id}
+                className="min-w-[78%] overflow-hidden rounded-[1.75rem] bg-[#052E24] text-white shadow-[0_18px_42px_rgba(5,46,36,0.22)]"
+              >
+                <div className="relative h-44 overflow-hidden">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(214,168,79,0.34),transparent_35%)]" />
+                  <Image
+                    src={competition.image_url || "/images/toyota-corolla.png"}
+                    alt={competition.title}
+                    fill
+                    sizes="80vw"
+                    className="object-contain object-center p-3 drop-shadow-[0_20px_35px_rgba(0,0,0,0.42)] transition duration-300"
+                  />
+                  <div className="absolute left-4 top-4 rounded-full bg-[#D6A84F] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24]">
+                    Top Prize
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#D6A84F]">
+                    {competition.category}
+                  </p>
+                  <h3 className="line-clamp-2 text-xl font-black leading-tight">
+                    {competition.title}
+                  </h3>
+                  <div className="mt-4 flex items-center justify-between gap-3">
+                    <span className="rounded-full bg-white/10 px-3 py-2 text-xs font-black">
+                      {formatPrice(competition.ticket_price)}
+                    </span>
+                    <Link
+                      href={`/competitions/${competition.slug}`}
+                      className="rounded-full bg-[#D6A84F] px-4 py-2 text-xs font-black text-[#052E24] transition active:scale-[0.98]"
+                    >
+                      Enter
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
       <section
         id="competitions"
-        className="mx-auto max-w-7xl px-5 py-16 md:py-20"
+        className="mx-auto hidden max-w-7xl px-5 py-16 md:block md:py-20"
       >
         <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>

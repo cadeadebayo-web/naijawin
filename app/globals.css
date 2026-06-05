@@ -283,3 +283,35 @@ body {
     animation: naijawin-mobile-shimmer 3s ease-in-out infinite;
   }
 }
+
+@keyframes naijawin-mobile-showcase-slide {
+  0% {
+    opacity: 0;
+    transform: translateX(32px) scale(0.94);
+    filter: blur(4px) saturate(1.08);
+    pointer-events: none;
+  }
+  6%, 22% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0) saturate(1.08);
+    pointer-events: auto;
+  }
+  28%, 100% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.96);
+    filter: blur(3px) saturate(1);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .naijawin-mobile-showcase-slide {
+    animation: naijawin-mobile-showcase-slide 16s cubic-bezier(0.16, 1, 0.3, 1) infinite both;
+    will-change: opacity, transform, filter;
+  }
+
+  .naijawin-mobile-showcase-slide .naijawin-car-splash {
+    animation-duration: 1.15s;
+  }
+}
