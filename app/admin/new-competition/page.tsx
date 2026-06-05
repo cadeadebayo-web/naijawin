@@ -27,7 +27,7 @@ export default function NewCompetitionPage() {
     "What is the capital city of Nigeria?"
   );
   const [correctAnswer, setCorrectAnswer] = useState("abuja");
-  const [status, setStatus] = useState("draft");
+  const [status, setStatus] = useState("active");
   const [icon, setIcon] = useState("🎁");
   const [imageUrl, setImageUrl] = useState("/images/toyota-corolla.jpg");
   const [isFeatured, setIsFeatured] = useState(false);
@@ -182,7 +182,7 @@ export default function NewCompetitionPage() {
     setDescription("");
     setSkillQuestion("What is the capital city of Nigeria?");
     setCorrectAnswer("abuja");
-    setStatus("draft");
+    setStatus("active");
     setIcon("🎁");
     setImageUrl("/images/toyota-corolla.jpg");
     setIsFeatured(false);
