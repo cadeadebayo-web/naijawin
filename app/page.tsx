@@ -181,18 +181,18 @@ export default async function Home() {
 
           {featuredCompetition ? (
             <div className="relative z-10 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur-sm">
-              <div className="relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_55%,#0A4535_100%)] p-5 md:p-7">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(214,168,79,0.36),transparent_26%),radial-gradient(circle_at_82%_58%,rgba(255,255,255,0.16),transparent_30%)]" />
-                <div className="naijawin-glow absolute -right-10 top-10 h-72 w-72 rounded-full bg-[#D6A84F]/20 blur-3xl" />
-                <div className="absolute right-10 top-10 h-28 w-28 rounded-full border border-dashed border-[#D6A84F]/30" />
-                <div className="naijawin-pop-1 absolute right-28 top-14 text-5xl text-[#D6A84F] drop-shadow-lg">
+              <div className="relative min-h-[470px] overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_58%,#0A4535_100%)] p-5 md:min-h-[510px] md:p-6">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(214,168,79,0.42),transparent_27%),radial-gradient(circle_at_60%_74%,rgba(255,255,255,0.12),transparent_30%)]" />
+                <div className="naijawin-glow absolute -right-12 top-10 h-72 w-72 rounded-full bg-[#D6A84F]/22 blur-3xl" />
+                <div className="absolute right-8 top-12 h-28 w-28 rounded-full border border-dashed border-[#D6A84F]/35" />
+                <div className="naijawin-pop-1 absolute right-24 top-12 text-5xl text-[#D6A84F] drop-shadow-lg">
                   ✦
                 </div>
                 <div className="naijawin-pop-2 absolute right-12 top-28 h-7 w-7 rounded-full bg-[#D6A84F] shadow-lg" />
                 <div className="naijawin-speed-line absolute left-8 top-28 h-4 w-20 rotate-[-18deg] rounded-full bg-white/20" />
                 <div className="naijawin-speed-line absolute left-16 top-40 h-3 w-28 rotate-[-12deg] rounded-full bg-[#D6A84F]/35" />
 
-                <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
+                <div className="relative z-20 flex flex-wrap items-center justify-between gap-3">
                   <div className="rounded-full bg-[#D6A84F] px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#052E24] shadow-lg">
                     Featured Competition
                   </div>
@@ -202,89 +202,82 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="relative z-10 mt-5 overflow-visible rounded-[1.6rem] border border-white/10 bg-white/5 p-4 md:p-6">
-                  <div className="relative h-[310px] overflow-visible md:h-[390px]">
-                    <div className="absolute left-1/2 top-[70%] h-24 w-[78%] -translate-x-1/2 rounded-full bg-black/28 blur-2xl" />
-                    <div className="absolute left-1/2 top-[22%] h-56 w-56 -translate-x-1/2 rounded-full bg-[#D6A84F]/18 blur-2xl" />
-                    <div className="absolute left-[10%] top-[26%] h-6 w-24 rotate-[-16deg] rounded-full bg-white/20" />
-                    <div className="absolute left-[16%] top-[40%] h-4 w-32 rotate-[-10deg] rounded-full bg-[#D6A84F]/30" />
-
-                    <div className="naijawin-car-splash absolute -inset-x-4 top-[-4%] h-[108%] md:-inset-x-8">
-                      <Image
-                        src={
-                          featuredCompetition.image_url ||
-                          "/images/toyota-corolla.png"
-                        }
-                        alt={featuredCompetition.title}
-                        fill
-                        priority
-                        className="object-contain object-center drop-shadow-[0_34px_50px_rgba(0,0,0,0.52)]"
-                      />
-                    </div>
-                  </div>
+                <div className="naijawin-car-splash absolute inset-x-[-10%] top-[18%] z-10 h-[54%] md:inset-x-[-16%] md:top-[14%] md:h-[61%]">
+                  <Image
+                    src={
+                      featuredCompetition.image_url ||
+                      "/images/toyota-corolla.png"
+                    }
+                    alt={featuredCompetition.title}
+                    fill
+                    priority
+                    className="object-contain object-center drop-shadow-[0_34px_52px_rgba(0,0,0,0.58)]"
+                  />
                 </div>
 
-                <div className="relative z-10 mt-5 rounded-[1.75rem] border border-white/25 bg-white/95 p-6 text-[#052E24] shadow-[0_30px_80px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-7">
-                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                    <div className="inline-flex rounded-full bg-[#052E24]/6 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#052E24]">
-                      {featuredCompetition.category}
+                <div className="absolute bottom-4 left-4 right-4 z-20 md:bottom-5 md:left-5 md:right-auto md:w-[62%]">
+                  <div className="rounded-[1.5rem] border border-white/30 bg-white/94 p-5 text-[#052E24] shadow-[0_24px_70px_rgba(0,0,0,0.26)] backdrop-blur-xl md:p-5">
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                      <div className="inline-flex rounded-full bg-[#052E24]/6 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24]">
+                        {featuredCompetition.category}
+                      </div>
+
+                      <div className="inline-flex items-center gap-2 rounded-full bg-[#D6A84F]/15 px-3 py-1 text-xs font-black text-[#052E24]">
+                        <span>{featuredCompetition.icon || "🎁"}</span>
+                        <span>{formatPrice(featuredCompetition.ticket_price)}</span>
+                      </div>
                     </div>
 
-                    <div className="inline-flex items-center gap-2 rounded-full bg-[#D6A84F]/15 px-3 py-1 text-sm font-black text-[#052E24]">
-                      <span>{featuredCompetition.icon || "🎁"}</span>
-                      <span>{formatPrice(featuredCompetition.ticket_price)}</span>
+                    <h2 className="text-2xl font-black leading-tight text-[#052E24] md:text-[1.75rem]">
+                      {featuredCompetition.title}
+                    </h2>
+
+                    <p className="mt-2 text-xs leading-5 text-gray-600 md:text-sm md:leading-6">
+                      Transparent draw, verified winner announcement and secure
+                      local payment options.
+                    </p>
+
+                    <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
+                      <div className="rounded-2xl bg-[#FAF7EF] p-3">
+                        <p className="text-gray-500">Draw Date</p>
+                        <p className="mt-1 font-black text-[#052E24]">
+                          {formatShortDate(featuredCompetition.draw_date)}
+                        </p>
+                      </div>
+
+                      <div className="rounded-2xl bg-[#FAF7EF] p-3">
+                        <p className="text-gray-500">Max Entries</p>
+                        <p className="mt-1 font-black text-[#052E24]">
+                          {featuredCompetition.max_entries.toLocaleString()}
+                        </p>
+                      </div>
                     </div>
+
+                    <div className="mt-4">
+                      <div className="mb-2 flex justify-between text-xs text-gray-600">
+                        <span>Entries sold</span>
+                        <span className="font-black text-[#052E24]">
+                          {featuredSoldPercentage}%
+                        </span>
+                      </div>
+
+                      <div className="h-2.5 overflow-hidden rounded-full bg-[#E8E2D4]">
+                        <div
+                          className="h-full rounded-full bg-[#D6A84F]"
+                          style={{
+                            width: `${featuredSoldPercentage}%`,
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <Link
+                      href={`/competitions/${featuredCompetition.slug}`}
+                      className="mt-4 block rounded-full bg-[#052E24] px-6 py-3 text-center text-sm font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
+                    >
+                      Enter Competition
+                    </Link>
                   </div>
-
-                  <h2 className="text-3xl font-black leading-tight text-[#052E24] md:text-[2.15rem]">
-                    {featuredCompetition.title}
-                  </h2>
-
-                  <p className="mt-3 text-sm leading-7 text-gray-600 md:text-base">
-                    Transparent draw, verified winner announcement and secure
-                    local payment options.
-                  </p>
-
-                  <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-                    <div className="rounded-2xl bg-[#FAF7EF] p-4">
-                      <p className="text-gray-500">Draw Date</p>
-                      <p className="mt-1 font-black text-[#052E24]">
-                        {formatShortDate(featuredCompetition.draw_date)}
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl bg-[#FAF7EF] p-4">
-                      <p className="text-gray-500">Max Entries</p>
-                      <p className="mt-1 font-black text-[#052E24]">
-                        {featuredCompetition.max_entries.toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-5">
-                    <div className="mb-2 flex justify-between text-sm text-gray-600">
-                      <span>Entries sold</span>
-                      <span className="font-black text-[#052E24]">
-                        {featuredSoldPercentage}%
-                      </span>
-                    </div>
-
-                    <div className="h-3 overflow-hidden rounded-full bg-[#E8E2D4]">
-                      <div
-                        className="h-full rounded-full bg-[#D6A84F]"
-                        style={{
-                          width: `${featuredSoldPercentage}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <Link
-                    href={`/competitions/${featuredCompetition.slug}`}
-                    className="mt-6 block rounded-full bg-[#052E24] px-8 py-4 text-center font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
-                  >
-                    Enter Competition
-                  </Link>
                 </div>
               </div>
             </div>
