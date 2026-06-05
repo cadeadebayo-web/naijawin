@@ -86,7 +86,7 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#D6A84F]/30 bg-[linear-gradient(90deg,#FFFDF7_0%,#FAF7EF_42%,#F4E6C5_100%)] text-[#052E24] shadow-[0_14px_45px_rgba(5,46,36,0.14)] backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-[#D6A84F]/30 bg-[linear-gradient(90deg,#FFFDF7_0%,#F8EBCB_48%,#D6A84F_140%)] text-[#052E24] shadow-[0_14px_45px_rgba(5,46,36,0.14)] backdrop-blur">
       <div className="h-1 bg-[linear-gradient(90deg,#052E24,#D6A84F,#052E24)]" />
 
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-3.5">
@@ -97,18 +97,18 @@ export default function Header() {
           aria-label="NaijaWin home"
         >
           <img
-            src="/images/branding/naijawin-logo-main.png"
+            src="/images/naijawin-logo-main.png"
             alt="NaijaWin"
             className="h-12 w-[185px] object-contain object-left"
           />
         </Link>
 
-        <nav className="hidden items-center rounded-full border border-[#052E24]/10 bg-white/72 px-2 py-2 text-sm font-black shadow-inner md:flex">
+        <nav className="hidden items-center rounded-full border border-[#D6A84F]/35 bg-white/82 px-2 py-2 text-sm font-black shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_10px_30px_rgba(5,46,36,0.08)] md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-full px-4 py-2 text-[#052E24] transition hover:bg-[#052E24] hover:text-white"
+              className="rounded-full px-4 py-2 text-[#052E24] transition hover:-translate-y-0.5 hover:bg-[#052E24] hover:text-white hover:shadow-md"
             >
               {link.label}
             </Link>
@@ -117,7 +117,7 @@ export default function Header() {
           {userEmail && (
             <Link
               href="/my-entries"
-              className="rounded-full px-4 py-2 text-[#052E24] transition hover:bg-[#052E24] hover:text-white"
+              className="rounded-full px-4 py-2 text-[#052E24] transition hover:-translate-y-0.5 hover:bg-[#052E24] hover:text-white hover:shadow-md"
             >
               My Entries
             </Link>
@@ -126,7 +126,7 @@ export default function Header() {
           {isAdmin && (
             <Link
               href="/admin"
-              className="rounded-full px-4 py-2 text-[#052E24] transition hover:bg-[#052E24] hover:text-white"
+              className="rounded-full px-4 py-2 text-[#052E24] transition hover:-translate-y-0.5 hover:bg-[#052E24] hover:text-white hover:shadow-md"
             >
               Admin
             </Link>
