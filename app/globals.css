@@ -13,8 +13,10 @@ html {
 body {
   margin: 0;
   background: var(--naijawin-cream);
+  color: #111827;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -22,6 +24,6 @@ body {
 }
 
 ::selection {
-  background: var(--naijawin-gold);
+  background: rgba(214, 168, 79, 0.28);
   color: var(--naijawin-green);
 }
