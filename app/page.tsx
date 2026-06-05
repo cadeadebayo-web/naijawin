@@ -124,14 +124,160 @@ export default async function Home() {
           <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#D6A84F]/10 blur-3xl" />
         </div>
 
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-10 md:grid-cols-[1.02fr_0.98fr] md:py-24">
+        <div className="relative z-10 px-4 pb-10 pt-7 md:hidden">
+          {featuredCompetition ? (
+            <div className="naijawin-mobile-hero-card relative overflow-hidden rounded-[2.25rem] border border-white/15 bg-[linear-gradient(155deg,#063729_0%,#052E24_48%,#0D4C39_100%)] p-4 shadow-[0_28px_90px_rgba(0,0,0,0.38)]">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_14%,rgba(214,168,79,0.42),transparent_28%),radial-gradient(circle_at_20%_78%,rgba(255,255,255,0.14),transparent_32%)]" />
+              <div className="naijawin-mobile-light-streak absolute -left-20 top-10 h-16 w-[150%] -rotate-12 bg-white/10 blur-xl" />
+              <div className="absolute -right-16 top-24 h-40 w-40 rounded-full bg-[#D6A84F]/25 blur-3xl" />
+              <div className="absolute -bottom-16 left-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-[#D6A84F]/15 blur-3xl" />
+
+              <div className="relative z-30 flex items-center justify-between gap-3">
+                <div className="rounded-full bg-[#D6A84F] px-4 py-2 text-[10px] font-black uppercase tracking-[0.23em] text-[#052E24] shadow-[0_14px_34px_rgba(214,168,79,0.32)]">
+                  Featured Competition
+                </div>
+
+                <div className="rounded-full border border-white/20 bg-white/12 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white backdrop-blur">
+                  {featuredSoldPercentage}% Sold
+                </div>
+              </div>
+
+              <div className="pointer-events-none absolute left-4 top-[5.2rem] z-20 flex rotate-[-8deg] items-center gap-2 rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur naijawin-prize-float-a">
+                🚗 Cars
+              </div>
+              <div className="pointer-events-none absolute right-5 top-[7.2rem] z-20 flex rotate-[7deg] items-center gap-2 rounded-2xl bg-[#D6A84F] px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24] shadow-lg naijawin-prize-float-b">
+                💰 Cash
+              </div>
+              <div className="pointer-events-none absolute bottom-[13.8rem] right-4 z-20 hidden rotate-[-6deg] rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur min-[390px]:block naijawin-prize-float-c">
+                📱 Gadgets
+              </div>
+
+              <div className="relative z-10 mt-5 rounded-[2rem] border border-[#D6A84F]/18 bg-[#052E24]/35 p-3 shadow-inner">
+                <div className="relative h-[315px] overflow-hidden rounded-[1.65rem] border border-white/15 bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.22),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]">
+                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#052E24] via-[#052E24]/86 to-transparent" />
+                  <div className="absolute left-1/2 top-20 h-40 w-40 -translate-x-1/2 rounded-full border border-dashed border-[#D6A84F]/28" />
+                  <div className="naijawin-pop-1 absolute right-8 top-10 text-5xl text-[#D6A84F] drop-shadow-lg">
+                    ✦
+                  </div>
+                  <div className="naijawin-pop-2 absolute left-8 top-16 h-6 w-6 rounded-full bg-[#D6A84F]/80 shadow-lg" />
+
+                  <div className="naijawin-car-splash absolute inset-x-[-10%] bottom-14 top-8 z-20">
+                    <Image
+                      src={
+                        featuredCompetition.image_url ||
+                        "/images/toyota-corolla.png"
+                      }
+                      alt={featuredCompetition.title}
+                      fill
+                      priority
+                      sizes="100vw"
+                      className="object-contain object-center drop-shadow-[0_34px_54px_rgba(0,0,0,0.58)]"
+                    />
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4 z-30">
+                    <div className="naijawin-mobile-shimmer mx-auto rounded-full bg-[#D6A84F] px-5 py-3 text-center text-[11px] font-black uppercase tracking-[0.24em] text-[#052E24] shadow-[0_18px_42px_rgba(214,168,79,0.45)]">
+                      Your Chance To Win
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative z-20 mt-4 rounded-[1.75rem] border border-white/15 bg-white/95 p-5 text-[#052E24] shadow-[0_20px_60px_rgba(0,0,0,0.26)] backdrop-blur">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                  <span className="rounded-full bg-[#052E24]/7 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[#052E24]">
+                    {featuredCompetition.category}
+                  </span>
+
+                  <span className="rounded-full bg-[#D6A84F]/18 px-3 py-1 text-xs font-black text-[#052E24]">
+                    {formatPrice(featuredCompetition.ticket_price)} per entry
+                  </span>
+                </div>
+
+                <h2 className="text-[1.7rem] font-black leading-tight text-[#052E24]">
+                  Win Life-Changing Prizes
+                </h2>
+
+                <p className="mt-2 text-sm leading-6 text-gray-600">
+                  Cars, cash, gadgets, homes and luxury rewards — enter securely
+                  and follow transparent winner announcements.
+                </p>
+
+                <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px]">
+                  <div className="rounded-2xl bg-[#FAF7EF] px-2 py-3">
+                    <p className="font-black text-[#052E24]">Secure</p>
+                    <p className="mt-0.5 text-gray-500">Payments</p>
+                  </div>
+                  <div className="rounded-2xl bg-[#FAF7EF] px-2 py-3">
+                    <p className="font-black text-[#052E24]">Verified</p>
+                    <p className="mt-0.5 text-gray-500">Winners</p>
+                  </div>
+                  <div className="rounded-2xl bg-[#FAF7EF] px-2 py-3">
+                    <p className="font-black text-[#052E24]">Live</p>
+                    <p className="mt-0.5 text-gray-500">Draws</p>
+                  </div>
+                </div>
+
+                <Link
+                  href={`/competitions/${featuredCompetition.slug}`}
+                  className="mt-5 block rounded-full bg-[#D6A84F] px-7 py-4 text-center text-sm font-black text-[#052E24] shadow-[0_18px_42px_rgba(214,168,79,0.35)] transition active:scale-[0.98]"
+                >
+                  Enter Now & Win
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-[2rem] bg-white p-8 text-[#052E24] shadow-2xl">
+              <h2 className="text-3xl font-black">
+                No active competitions yet.
+              </h2>
+
+              <p className="mt-4 text-gray-600">
+                Add active competitions in Supabase and they will appear here.
+              </p>
+            </div>
+          )}
+
+          <div className="mt-7">
+            <p className="mb-4 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-bold text-[#D6A84F] backdrop-blur">
+              Nigeria&apos;s premium prize competition platform
+            </p>
+
+            <h1 className="text-[2.75rem] font-black leading-[1.03] tracking-tight text-white">
+              Win Cars, Cash, Gadgets & Dream Prizes.
+            </h1>
+
+            <p className="mt-4 text-base leading-7 text-white/80">
+              Enter exciting competitions from as little as ₦300. Secure local
+              payments, transparent draws and verified winners.
+            </p>
+
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <Link
+                href="/competitions"
+                className="rounded-full bg-[#D6A84F] px-5 py-4 text-center text-sm font-black text-[#052E24] shadow-[0_16px_35px_rgba(214,168,79,0.24)] transition active:scale-[0.98]"
+              >
+                Browse Prizes
+              </Link>
+
+              <Link
+                href="/how-it-works"
+                className="rounded-full border border-white/30 bg-white/5 px-5 py-4 text-center text-sm font-black text-white transition active:scale-[0.98]"
+              >
+                How It Works
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto hidden max-w-7xl items-center gap-10 px-5 py-10 md:grid md:grid-cols-[1.02fr_0.98fr] md:py-24">
           <div className="relative z-10 order-2 md:order-1">
             <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-bold text-[#D6A84F] backdrop-blur">
               Nigeria&apos;s premium prize competition platform
             </p>
 
             <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl md:text-7xl">
-              Win Cars, Cash, Gadgets & Life-Changing Prizes in Nigeria.
+              Win Cars, Cash, Gadgets & Life-Changing Prizes.
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/80">
