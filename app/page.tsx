@@ -131,7 +131,7 @@ export default async function Home() {
             </p>
 
             <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl md:text-7xl">
-              Win Cars, Cash, Gadgets & Life-Changing Prizes in Nigeria.
+              Win Cars, Cash, Gadgets & Life-Changing Prizes.
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/80">
