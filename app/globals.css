@@ -168,3 +168,23 @@ body {
 .naijawin-chance-pulse {
   animation: naijawin-chance-pulse 2.4s ease-in-out infinite;
 }
+
+
+@media (max-width: 767px) {
+  .naijawin-mobile-prize-stage {
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(214, 168, 79, 0.14);
+  }
+
+  .naijawin-mobile-prize-stage::after {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-radius: 1.8rem;
+    border: 1px solid rgba(214, 168, 79, 0.22);
+    pointer-events: none;
+  }
+
+  .naijawin-car-splash {
+    animation-duration: 1.55s;
+  }
+}

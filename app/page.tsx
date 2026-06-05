@@ -180,8 +180,8 @@ export default async function Home() {
           </div>
 
           {featuredCompetition ? (
-            <div className="relative z-10 order-1 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur-sm md:order-2">
-              <div className="relative min-h-[470px] overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_58%,#0A4535_100%)] p-5 md:min-h-[510px] md:p-6">
+            <div className="naijawin-mobile-prize-stage relative z-10 order-1 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur-sm md:order-2">
+              <div className="relative min-h-[560px] overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_58%,#0A4535_100%)] p-5 md:min-h-[510px] md:p-6">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(214,168,79,0.42),transparent_27%),radial-gradient(circle_at_60%_74%,rgba(255,255,255,0.12),transparent_30%)]" />
                 <div className="naijawin-glow absolute -right-12 top-10 h-72 w-72 rounded-full bg-[#D6A84F]/22 blur-3xl" />
                 <div className="absolute right-8 top-12 h-28 w-28 rounded-full border border-dashed border-[#D6A84F]/35" />
@@ -202,9 +202,13 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="absolute inset-x-5 bottom-5 top-20 z-20 overflow-hidden rounded-[1.6rem] border border-white/15 bg-[#052E24]/25 shadow-[0_28px_90px_rgba(0,0,0,0.3)] md:inset-x-6 md:bottom-6 md:top-20">
+                <div className="absolute inset-x-4 bottom-5 top-20 z-20 overflow-hidden rounded-[1.6rem] border border-white/15 bg-[#052E24]/25 shadow-[0_28px_90px_rgba(0,0,0,0.3)] md:inset-x-6 md:bottom-6 md:top-20">
                   <div className="naijawin-feature-car-panel absolute inset-0">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_58%_46%,rgba(255,255,255,0.18),transparent_33%),linear-gradient(120deg,rgba(255,255,255,0.05),transparent)]" />
+                    <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#052E24] via-[#052E24]/88 to-transparent md:hidden" />
+                    <div className="absolute bottom-20 left-1/2 z-10 h-24 w-[78%] -translate-x-1/2 rounded-full bg-[#D6A84F]/18 blur-2xl md:hidden" />
+                    <div className="absolute left-6 top-28 z-10 h-3 w-20 -rotate-12 rounded-full bg-white/18 md:hidden" />
+                    <div className="absolute right-8 top-32 z-10 h-4 w-16 rotate-12 rounded-full bg-[#D6A84F]/30 md:hidden" />
                     <div className="hidden rounded-full bg-white/12 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white backdrop-blur md:absolute md:left-5 md:top-5 md:block">
                       Prize Reveal
                     </div>
@@ -217,7 +221,7 @@ export default async function Home() {
                       </p>
                     </div>
 
-                    <div className="naijawin-car-splash absolute inset-x-[-8%] bottom-16 top-14 md:inset-x-[-22%] md:bottom-2 md:top-0">
+                    <div className="naijawin-car-splash absolute inset-x-[-16%] bottom-28 top-24 z-20 md:inset-x-[-22%] md:bottom-2 md:top-0">
                       <Image
                         src={
                           featuredCompetition.image_url ||
@@ -230,9 +234,12 @@ export default async function Home() {
                       />
                     </div>
 
-                    <div className="absolute bottom-5 left-4 right-4 z-30 md:hidden">
-                      <div className="naijawin-chance-pulse mx-auto flex max-w-[280px] items-center justify-center rounded-full bg-[#D6A84F] px-5 py-3 text-center text-[12px] font-black uppercase tracking-[0.22em] text-[#052E24] shadow-[0_18px_40px_rgba(214,168,79,0.32)]">
+                    <div className="absolute bottom-6 left-4 right-4 z-40 md:hidden">
+                      <div className="naijawin-chance-pulse mx-auto flex max-w-[310px] items-center justify-center rounded-full bg-[#D6A84F] px-5 py-3.5 text-center text-[12px] font-black uppercase tracking-[0.24em] text-[#052E24] shadow-[0_18px_42px_rgba(214,168,79,0.42)]">
                         Your Chance To Win
+                      </div>
+                      <div className="mx-auto mt-3 h-1.5 max-w-[180px] overflow-hidden rounded-full bg-white/12">
+                        <div className="h-full w-2/3 rounded-full bg-[#D6A84F]" />
                       </div>
                     </div>
                   </div>
