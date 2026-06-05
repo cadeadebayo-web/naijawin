@@ -192,7 +192,7 @@ export default async function Home() {
                 <div className="naijawin-speed-line absolute left-8 top-28 h-4 w-20 rotate-[-18deg] rounded-full bg-white/20" />
                 <div className="naijawin-speed-line absolute left-16 top-40 h-3 w-28 rotate-[-12deg] rounded-full bg-[#D6A84F]/35" />
 
-                <div className="relative z-20 flex flex-wrap items-center justify-between gap-3">
+                <div className="relative z-30 flex flex-wrap items-center justify-between gap-3">
                   <div className="rounded-full bg-[#D6A84F] px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#052E24] shadow-lg">
                     Featured Competition
                   </div>
@@ -202,81 +202,98 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="naijawin-car-splash absolute inset-x-[-10%] top-[18%] z-10 h-[54%] md:inset-x-[-16%] md:top-[14%] md:h-[61%]">
-                  <Image
-                    src={
-                      featuredCompetition.image_url ||
-                      "/images/toyota-corolla.png"
-                    }
-                    alt={featuredCompetition.title}
-                    fill
-                    priority
-                    className="object-contain object-center drop-shadow-[0_34px_52px_rgba(0,0,0,0.58)]"
-                  />
-                </div>
-
-                <div className="absolute bottom-4 left-4 right-4 z-20 md:bottom-5 md:left-5 md:right-auto md:w-[62%]">
-                  <div className="rounded-[1.5rem] border border-white/30 bg-white/94 p-5 text-[#052E24] shadow-[0_24px_70px_rgba(0,0,0,0.26)] backdrop-blur-xl md:p-5">
-                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                      <div className="inline-flex rounded-full bg-[#052E24]/6 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24]">
-                        {featuredCompetition.category}
-                      </div>
-
-                      <div className="inline-flex items-center gap-2 rounded-full bg-[#D6A84F]/15 px-3 py-1 text-xs font-black text-[#052E24]">
-                        <span>{featuredCompetition.icon || "🎁"}</span>
-                        <span>{formatPrice(featuredCompetition.ticket_price)}</span>
-                      </div>
+                <div className="absolute inset-x-5 bottom-5 top-20 z-20 overflow-hidden rounded-[1.6rem] border border-white/15 bg-[#052E24]/25 shadow-[0_28px_90px_rgba(0,0,0,0.3)] md:inset-x-6 md:bottom-6 md:top-20">
+                  <div className="naijawin-feature-car-panel absolute inset-0">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_58%_46%,rgba(255,255,255,0.18),transparent_33%),linear-gradient(120deg,rgba(255,255,255,0.05),transparent)]" />
+                    <div className="absolute left-5 top-5 rounded-full bg-white/12 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white backdrop-blur">
+                      Prize Reveal
+                    </div>
+                    <div className="absolute bottom-5 left-5 rounded-2xl bg-[#D6A84F] px-5 py-3 text-[#052E24] shadow-xl">
+                      <p className="text-xs font-black uppercase tracking-[0.16em] opacity-75">
+                        From
+                      </p>
+                      <p className="text-2xl font-black">
+                        {formatPrice(featuredCompetition.ticket_price)}
+                      </p>
                     </div>
 
-                    <h2 className="text-2xl font-black leading-tight text-[#052E24] md:text-[1.75rem]">
-                      {featuredCompetition.title}
-                    </h2>
-
-                    <p className="mt-2 text-xs leading-5 text-gray-600 md:text-sm md:leading-6">
-                      Transparent draw, verified winner announcement and secure
-                      local payment options.
-                    </p>
-
-                    <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                      <div className="rounded-2xl bg-[#FAF7EF] p-3">
-                        <p className="text-gray-500">Draw Date</p>
-                        <p className="mt-1 font-black text-[#052E24]">
-                          {formatShortDate(featuredCompetition.draw_date)}
-                        </p>
-                      </div>
-
-                      <div className="rounded-2xl bg-[#FAF7EF] p-3">
-                        <p className="text-gray-500">Max Entries</p>
-                        <p className="mt-1 font-black text-[#052E24]">
-                          {featuredCompetition.max_entries.toLocaleString()}
-                        </p>
-                      </div>
+                    <div className="naijawin-car-splash absolute inset-x-[-18%] bottom-8 top-5 md:inset-x-[-22%] md:bottom-2 md:top-0">
+                      <Image
+                        src={
+                          featuredCompetition.image_url ||
+                          "/images/toyota-corolla.png"
+                        }
+                        alt={featuredCompetition.title}
+                        fill
+                        priority
+                        className="object-contain object-center drop-shadow-[0_34px_52px_rgba(0,0,0,0.58)]"
+                      />
                     </div>
+                  </div>
 
-                    <div className="mt-4">
-                      <div className="mb-2 flex justify-between text-xs text-gray-600">
-                        <span>Entries sold</span>
-                        <span className="font-black text-[#052E24]">
-                          {featuredSoldPercentage}%
-                        </span>
+                  <div className="naijawin-feature-info-panel absolute inset-0 flex items-center justify-center p-4 md:p-6">
+                    <div className="h-full w-full rounded-[1.45rem] border border-white/50 bg-white/95 p-5 text-[#052E24] shadow-[0_24px_70px_rgba(0,0,0,0.26)] backdrop-blur-xl md:p-6">
+                      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                        <div className="inline-flex rounded-full bg-[#052E24]/6 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24]">
+                          {featuredCompetition.category}
+                        </div>
+
+                        <div className="inline-flex items-center gap-2 rounded-full bg-[#D6A84F]/15 px-3 py-1 text-xs font-black text-[#052E24]">
+                          <span>{featuredCompetition.icon || "🎁"}</span>
+                          <span>{formatPrice(featuredCompetition.ticket_price)}</span>
+                        </div>
                       </div>
 
-                      <div className="h-2.5 overflow-hidden rounded-full bg-[#E8E2D4]">
-                        <div
-                          className="h-full rounded-full bg-[#D6A84F]"
-                          style={{
-                            width: `${featuredSoldPercentage}%`,
-                          }}
-                        />
+                      <h2 className="text-2xl font-black leading-tight text-[#052E24] md:text-[1.8rem]">
+                        {featuredCompetition.title}
+                      </h2>
+
+                      <p className="mt-2 text-xs leading-5 text-gray-600 md:text-sm md:leading-6">
+                        Transparent draw, verified winner announcement and secure
+                        local payment options.
+                      </p>
+
+                      <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
+                        <div className="rounded-2xl bg-[#FAF7EF] p-3">
+                          <p className="text-gray-500">Draw Date</p>
+                          <p className="mt-1 font-black text-[#052E24]">
+                            {formatShortDate(featuredCompetition.draw_date)}
+                          </p>
+                        </div>
+
+                        <div className="rounded-2xl bg-[#FAF7EF] p-3">
+                          <p className="text-gray-500">Max Entries</p>
+                          <p className="mt-1 font-black text-[#052E24]">
+                            {featuredCompetition.max_entries.toLocaleString()}
+                          </p>
+                        </div>
                       </div>
+
+                      <div className="mt-4">
+                        <div className="mb-2 flex justify-between text-xs text-gray-600">
+                          <span>Entries sold</span>
+                          <span className="font-black text-[#052E24]">
+                            {featuredSoldPercentage}%
+                          </span>
+                        </div>
+
+                        <div className="h-2.5 overflow-hidden rounded-full bg-[#E8E2D4]">
+                          <div
+                            className="h-full rounded-full bg-[#D6A84F]"
+                            style={{
+                              width: `${featuredSoldPercentage}%`,
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <Link
+                        href={`/competitions/${featuredCompetition.slug}`}
+                        className="mt-4 block rounded-full bg-[#052E24] px-6 py-3 text-center text-sm font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
+                      >
+                        Enter Competition
+                      </Link>
                     </div>
-
-                    <Link
-                      href={`/competitions/${featuredCompetition.slug}`}
-                      className="mt-4 block rounded-full bg-[#052E24] px-6 py-3 text-center text-sm font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
-                    >
-                      Enter Competition
-                    </Link>
                   </div>
                 </div>
               </div>

@@ -109,3 +109,47 @@ body {
 .naijawin-speed-line {
   animation: naijawin-speed-line 1.1s ease-out 260ms both;
 }
+
+@keyframes naijawin-feature-car-panel {
+  0%, 38% {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  48%, 84% {
+    opacity: 0;
+    transform: translateY(-18px);
+    pointer-events: none;
+  }
+  94%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@keyframes naijawin-feature-info-panel {
+  0%, 40% {
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+  }
+  52%, 82% {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  92%, 100% {
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+  }
+}
+
+.naijawin-feature-car-panel {
+  animation: naijawin-feature-car-panel 6.5s ease-in-out infinite;
+}
+
+.naijawin-feature-info-panel {
+  animation: naijawin-feature-info-panel 6.5s ease-in-out infinite;
+}
