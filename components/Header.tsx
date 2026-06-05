@@ -36,6 +36,7 @@ export default function Header() {
   const [userEmail, setUserEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [isCheckingUser, setIsCheckingUser] = useState(true);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   async function checkUserAndRole() {
     setIsCheckingUser(true);
@@ -92,15 +93,22 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-3.5">
         <Link
           href="/"
-          className="flex shrink-0 items-center rounded-2xl bg-white/70 px-3 py-2 shadow-[0_10px_26px_rgba(5,46,36,0.08)] ring-1 ring-[#D6A84F]/20 transition hover:-translate-y-0.5 hover:shadow-[0_16px_35px_rgba(5,46,36,0.12)]"
+          className="flex h-14 w-[190px] shrink-0 items-center justify-center rounded-2xl bg-white/75 px-3 py-2 shadow-[0_10px_26px_rgba(5,46,36,0.08)] ring-1 ring-[#D6A84F]/20 transition hover:-translate-y-0.5 hover:shadow-[0_16px_35px_rgba(5,46,36,0.12)]"
           onClick={() => setMenuOpen(false)}
           aria-label="NaijaWin home"
         >
-          <img
-            src="/images/naijawin-logo-main.png"
-            alt="NaijaWin"
-            className="h-12 w-[185px] object-contain object-left"
-          />
+          {!logoFailed ? (
+            <img
+              src="/images/naijawin-logo-main.png"
+              alt="NaijaWin"
+              className="h-12 w-full object-contain object-center"
+              onError={() => setLogoFailed(true)}
+            />
+          ) : (
+            <span className="text-2xl font-black tracking-tight text-[#052E24]">
+              Naija<span className="text-[#D6A84F]">Win</span>
+            </span>
+          )}
         </Link>
 
         <nav className="hidden items-center rounded-full border border-[#D6A84F]/35 bg-white/82 px-2 py-2 text-sm font-black shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_10px_30px_rgba(5,46,36,0.08)] md:flex">
