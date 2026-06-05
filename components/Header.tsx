@@ -1,16 +1,35 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Competitions", href: "/competitions" },
-  { label: "How It Works", href: "/how-it-works" },
-  { label: "Winners", href: "/winners" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Competitions",
+    href: "/competitions",
+  },
+  {
+    label: "How It Works",
+    href: "/how-it-works",
+  },
+  {
+    label: "Winners",
+    href: "/winners",
+  },
+  {
+    label: "FAQ",
+    href: "/faq",
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+  },
 ];
 
 export default function Header() {
@@ -68,25 +87,30 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#052E24]/95 text-white shadow-xl backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
+    <header className="sticky top-0 z-50 border-b border-[#E8E2D4] bg-white/95 text-[#052E24] shadow-[0_8px_30px_rgba(5,46,36,0.08)] backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
         <Link
           href="/"
-          className="group flex items-center gap-2 text-2xl font-black tracking-tight"
+          className="relative flex h-14 w-[178px] items-center"
           onClick={() => setMenuOpen(false)}
+          aria-label="NaijaWin home"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#D6A84F] text-sm text-[#052E24] shadow-lg transition group-hover:rotate-6">
-            NW
-          </span>
-          Naija<span className="-ml-2 text-[#D6A84F]">Win</span>
+          <Image
+            src="/images/branding/naijawin-logo-main.png"
+            alt="NaijaWin"
+            fill
+            priority
+            sizes="178px"
+            className="object-contain object-left"
+          />
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-2 text-sm font-bold md:flex">
+        <nav className="hidden items-center gap-2 text-sm font-bold md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-full px-3 py-2 text-white/85 transition hover:bg-white/10 hover:text-[#D6A84F]"
+              className="rounded-full px-4 py-2 text-[#052E24] transition hover:bg-[#D6A84F]/15 hover:text-[#052E24]"
             >
               {link.label}
             </Link>
@@ -95,7 +119,7 @@ export default function Header() {
           {userEmail && (
             <Link
               href="/my-entries"
-              className="rounded-full px-3 py-2 text-white/85 transition hover:bg-white/10 hover:text-[#D6A84F]"
+              className="rounded-full px-4 py-2 text-[#052E24] transition hover:bg-[#D6A84F]/15 hover:text-[#052E24]"
             >
               My Entries
             </Link>
@@ -104,7 +128,7 @@ export default function Header() {
           {isAdmin && (
             <Link
               href="/admin"
-              className="rounded-full px-3 py-2 text-white/85 transition hover:bg-white/10 hover:text-[#D6A84F]"
+              className="rounded-full px-4 py-2 text-[#052E24] transition hover:bg-[#D6A84F]/15 hover:text-[#052E24]"
             >
               Admin
             </Link>
@@ -113,17 +137,19 @@ export default function Header() {
 
         <div className="hidden items-center gap-3 md:flex">
           {isCheckingUser ? (
-            <span className="text-sm font-bold text-white/60">Checking...</span>
+            <span className="rounded-full bg-[#FAF7EF] px-4 py-2 text-sm font-bold text-[#052E24]/60">
+              Checking...
+            </span>
           ) : userEmail ? (
             <>
-              <span className="max-w-[150px] truncate rounded-full bg-white/10 px-3 py-2 text-xs font-bold text-white/75">
+              <span className="max-w-[170px] truncate rounded-full bg-[#FAF7EF] px-4 py-2 text-sm font-bold text-[#052E24]/75">
                 {userEmail}
               </span>
 
               <button
                 type="button"
                 onClick={handleLogout}
-                className="text-sm font-black text-white transition hover:text-[#D6A84F]"
+                className="rounded-full px-4 py-2 text-sm font-black text-[#052E24] transition hover:bg-[#052E24]/6"
               >
                 Logout
               </button>
@@ -131,7 +157,7 @@ export default function Header() {
           ) : (
             <Link
               href="/login"
-              className="text-sm font-black text-white transition hover:text-[#D6A84F]"
+              className="rounded-full px-4 py-2 text-sm font-black text-[#052E24] transition hover:bg-[#052E24]/6"
             >
               Login
             </Link>
@@ -139,7 +165,7 @@ export default function Header() {
 
           <Link
             href="/competitions"
-            className="rounded-full bg-[#D6A84F] px-5 py-2.5 text-sm font-black text-[#052E24] shadow-lg transition hover:-translate-y-0.5 hover:bg-white"
+            className="rounded-full bg-[#D6A84F] px-5 py-2.5 text-sm font-black text-[#052E24] transition hover:bg-[#052E24] hover:text-white"
           >
             Enter Now
           </Link>
@@ -148,7 +174,7 @@ export default function Header() {
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-2xl font-black text-white md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#052E24]/10 bg-[#FAF7EF] text-2xl font-black text-[#052E24] md:hidden"
           aria-label="Open mobile menu"
         >
           {menuOpen ? "×" : "☰"}
@@ -156,14 +182,14 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-white/10 bg-[#052E24] px-5 pb-5 md:hidden">
+        <div className="border-t border-[#E8E2D4] bg-white px-5 pb-5 md:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-3 pt-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="rounded-2xl bg-white/10 px-5 py-4 text-sm font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
+                className="rounded-2xl border border-[#E8E2D4] bg-[#FAF7EF] px-5 py-4 text-sm font-black text-[#052E24] transition hover:bg-[#D6A84F]"
               >
                 {link.label}
               </Link>
@@ -173,7 +199,7 @@ export default function Header() {
               <Link
                 href="/my-entries"
                 onClick={() => setMenuOpen(false)}
-                className="rounded-2xl bg-white/10 px-5 py-4 text-sm font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
+                className="rounded-2xl border border-[#E8E2D4] bg-[#FAF7EF] px-5 py-4 text-sm font-black text-[#052E24] transition hover:bg-[#D6A84F]"
               >
                 My Entries
               </Link>
@@ -183,19 +209,19 @@ export default function Header() {
               <Link
                 href="/admin"
                 onClick={() => setMenuOpen(false)}
-                className="rounded-2xl bg-white/10 px-5 py-4 text-sm font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
+                className="rounded-2xl border border-[#E8E2D4] bg-[#FAF7EF] px-5 py-4 text-sm font-black text-[#052E24] transition hover:bg-[#D6A84F]"
               >
                 Admin
               </Link>
             )}
 
             {isCheckingUser ? (
-              <div className="rounded-2xl bg-white/10 px-5 py-4 text-sm font-black text-white/70">
+              <div className="rounded-2xl border border-[#E8E2D4] bg-[#FAF7EF] px-5 py-4 text-sm font-black text-[#052E24]/70">
                 Checking login...
               </div>
             ) : userEmail ? (
               <>
-                <div className="rounded-2xl bg-white/10 px-5 py-4 text-sm font-bold text-white/70">
+                <div className="rounded-2xl border border-[#E8E2D4] bg-[#FAF7EF] px-5 py-4 text-sm font-bold text-[#052E24]/75">
                   Logged in as {userEmail}
                 </div>
 
@@ -211,7 +237,7 @@ export default function Header() {
               <Link
                 href="/login"
                 onClick={() => setMenuOpen(false)}
-                className="rounded-2xl bg-white/10 px-5 py-4 text-center text-sm font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
+                className="rounded-2xl border border-[#E8E2D4] bg-[#FAF7EF] px-5 py-4 text-center text-sm font-black text-[#052E24] transition hover:bg-[#D6A84F]"
               >
                 Login
               </Link>
@@ -220,7 +246,7 @@ export default function Header() {
             <Link
               href="/competitions"
               onClick={() => setMenuOpen(false)}
-              className="rounded-2xl bg-[#D6A84F] px-5 py-4 text-center text-sm font-black text-[#052E24] transition hover:bg-white"
+              className="rounded-2xl bg-[#D6A84F] px-5 py-4 text-center text-sm font-black text-[#052E24] transition hover:bg-[#052E24] hover:text-white"
             >
               Enter Now
             </Link>
