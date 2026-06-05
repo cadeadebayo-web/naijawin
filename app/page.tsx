@@ -125,7 +125,7 @@ export default async function Home() {
         </div>
 
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 md:grid-cols-[1.02fr_0.98fr] md:py-24">
-          <div className="relative z-10">
+          <div className="relative z-10 order-2 md:order-1">
             <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-bold text-[#D6A84F] backdrop-blur">
               Nigeria&apos;s premium prize competition platform
             </p>
@@ -180,7 +180,7 @@ export default async function Home() {
           </div>
 
           {featuredCompetition ? (
-            <div className="relative z-10 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur-sm">
+            <div className="relative z-10 order-1 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur-sm md:order-2">
               <div className="relative min-h-[470px] overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_58%,#0A4535_100%)] p-5 md:min-h-[510px] md:p-6">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(214,168,79,0.42),transparent_27%),radial-gradient(circle_at_60%_74%,rgba(255,255,255,0.12),transparent_30%)]" />
                 <div className="naijawin-glow absolute -right-12 top-10 h-72 w-72 rounded-full bg-[#D6A84F]/22 blur-3xl" />
@@ -299,7 +299,7 @@ export default async function Home() {
               </div>
             </div>
           ) : (
-            <div className="rounded-[2rem] bg-white p-8 text-[#052E24] shadow-2xl">
+            <div className="order-1 rounded-[2rem] bg-white p-8 text-[#052E24] shadow-2xl md:order-2">
               <h2 className="text-3xl font-black">
                 No active competitions yet.
               </h2>
