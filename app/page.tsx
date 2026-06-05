@@ -217,7 +217,7 @@ export default async function Home() {
                       </p>
                     </div>
 
-                    <div className="naijawin-car-splash absolute inset-x-[-7%] bottom-1 top-1 md:inset-x-[-22%] md:bottom-2 md:top-0">
+                    <div className="naijawin-car-splash absolute inset-x-[-8%] bottom-16 top-14 md:inset-x-[-22%] md:bottom-2 md:top-0">
                       <Image
                         src={
                           featuredCompetition.image_url ||
@@ -228,6 +228,12 @@ export default async function Home() {
                         priority
                         className="object-contain object-center drop-shadow-[0_34px_52px_rgba(0,0,0,0.58)]"
                       />
+                    </div>
+
+                    <div className="absolute bottom-5 left-4 right-4 z-30 md:hidden">
+                      <div className="naijawin-chance-pulse mx-auto flex max-w-[280px] items-center justify-center rounded-full bg-[#D6A84F] px-5 py-3 text-center text-[12px] font-black uppercase tracking-[0.22em] text-[#052E24] shadow-[0_18px_40px_rgba(214,168,79,0.32)]">
+                        Your Chance To Win
+                      </div>
                     </div>
                   </div>
 

@@ -153,3 +153,18 @@ body {
 .naijawin-feature-info-panel {
   animation: naijawin-feature-info-panel 6.5s ease-in-out infinite;
 }
+
+@keyframes naijawin-chance-pulse {
+  0%, 100% {
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.02);
+  }
+}
+
+.naijawin-chance-pulse {
+  animation: naijawin-chance-pulse 2.4s ease-in-out infinite;
+}
