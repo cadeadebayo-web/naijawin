@@ -100,7 +100,6 @@ function getCuratedCompetitions(competitions: Competition[], limit: number) {
 
 function getPrizeEmoji(category: string, title: string) {
   const prizeText = `${category} ${title}`.toLowerCase();
-
   if (prizeText.includes("car") || prizeText.includes("toyota")) {
     return "🚗";
   }
