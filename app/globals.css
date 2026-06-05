@@ -28,43 +28,84 @@ body {
   color: var(--naijawin-green);
 }
 
-@keyframes naijawin-float {
-  0%, 100% {
-    transform: translateY(0) rotate(-1deg);
+@keyframes naijawin-car-splash {
+  0% {
+    opacity: 0;
+    transform: translateX(110px) translateY(42px) scale(0.72) rotate(-4deg);
+    filter: blur(8px) saturate(1.2);
   }
-  50% {
-    transform: translateY(-14px) rotate(1deg);
+  58% {
+    opacity: 1;
+    transform: translateX(-10px) translateY(-8px) scale(1.08) rotate(1deg);
+    filter: blur(0) saturate(1.08);
+  }
+  78% {
+    transform: translateX(4px) translateY(3px) scale(0.99) rotate(-0.35deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+    filter: blur(0) saturate(1);
   }
 }
 
-@keyframes naijawin-pulse {
+@keyframes naijawin-glow {
   0%, 100% {
-    opacity: 0.42;
+    opacity: 0.35;
     transform: scale(1);
   }
   50% {
-    opacity: 0.82;
-    transform: scale(1.08);
+    opacity: 0.72;
+    transform: scale(1.05);
   }
 }
 
-@keyframes naijawin-spin-slow {
-  from {
-    transform: rotate(0deg);
+@keyframes naijawin-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.5) rotate(-12deg);
   }
-  to {
-    transform: rotate(360deg);
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.14) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
   }
 }
 
-.naijawin-float {
-  animation: naijawin-float 4.8s ease-in-out infinite;
+@keyframes naijawin-speed-line {
+  0% {
+    opacity: 0;
+    transform: translateX(70px) rotate(var(--line-rotation, -14deg));
+  }
+  45% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.22;
+    transform: translateX(0) rotate(var(--line-rotation, -14deg));
+  }
 }
 
-.naijawin-pulse {
-  animation: naijawin-pulse 3.2s ease-in-out infinite;
+.naijawin-car-splash {
+  animation: naijawin-car-splash 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity, filter;
 }
 
-.naijawin-spin-slow {
-  animation: naijawin-spin-slow 18s linear infinite;
+.naijawin-glow {
+  animation: naijawin-glow 3.5s ease-in-out infinite;
+}
+
+.naijawin-pop-1 {
+  animation: naijawin-pop 900ms ease-out 450ms both;
+}
+
+.naijawin-pop-2 {
+  animation: naijawin-pop 850ms ease-out 650ms both;
+}
+
+.naijawin-speed-line {
+  animation: naijawin-speed-line 1.1s ease-out 260ms both;
 }

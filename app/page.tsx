@@ -183,13 +183,14 @@ export default async function Home() {
             <div className="relative z-10 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur-sm">
               <div className="relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_55%,#0A4535_100%)] p-5 md:p-7">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(214,168,79,0.36),transparent_26%),radial-gradient(circle_at_82%_58%,rgba(255,255,255,0.16),transparent_30%)]" />
-                <div className="naijawin-pulse absolute -right-10 top-10 h-72 w-72 rounded-full bg-[#D6A84F]/20 blur-3xl" />
-                <div className="naijawin-spin-slow absolute right-8 top-8 h-28 w-28 rounded-full border border-dashed border-[#D6A84F]/35" />
-                <div className="absolute right-28 top-14 text-5xl text-[#D6A84F] drop-shadow-lg">
+                <div className="naijawin-glow absolute -right-10 top-10 h-72 w-72 rounded-full bg-[#D6A84F]/20 blur-3xl" />
+                <div className="absolute right-10 top-10 h-28 w-28 rounded-full border border-dashed border-[#D6A84F]/30" />
+                <div className="naijawin-pop-1 absolute right-28 top-14 text-5xl text-[#D6A84F] drop-shadow-lg">
                   ✦
                 </div>
-                <div className="absolute right-12 top-28 h-7 w-7 rounded-full bg-[#D6A84F] shadow-lg" />
-                <div className="absolute left-8 top-28 h-4 w-16 rotate-[-18deg] rounded-full bg-white/20" />
+                <div className="naijawin-pop-2 absolute right-12 top-28 h-7 w-7 rounded-full bg-[#D6A84F] shadow-lg" />
+                <div className="naijawin-speed-line absolute left-8 top-28 h-4 w-20 rotate-[-18deg] rounded-full bg-white/20" />
+                <div className="naijawin-speed-line absolute left-16 top-40 h-3 w-28 rotate-[-12deg] rounded-full bg-[#D6A84F]/35" />
 
                 <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
                   <div className="rounded-full bg-[#D6A84F] px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#052E24] shadow-lg">
@@ -201,12 +202,14 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="relative z-10 mt-5 rounded-[1.6rem] border border-white/10 bg-white/5 p-4 md:p-6">
-                  <div className="relative h-[260px] overflow-visible md:h-[330px]">
-                    <div className="absolute left-1/2 top-[58%] h-28 w-[82%] -translate-x-1/2 rounded-full bg-black/30 blur-2xl" />
-                    <div className="absolute left-1/2 top-[18%] h-44 w-44 -translate-x-1/2 rounded-full bg-[#D6A84F]/18 blur-2xl" />
+                <div className="relative z-10 mt-5 overflow-visible rounded-[1.6rem] border border-white/10 bg-white/5 p-4 md:p-6">
+                  <div className="relative h-[310px] overflow-visible md:h-[390px]">
+                    <div className="absolute left-1/2 top-[70%] h-24 w-[78%] -translate-x-1/2 rounded-full bg-black/28 blur-2xl" />
+                    <div className="absolute left-1/2 top-[22%] h-56 w-56 -translate-x-1/2 rounded-full bg-[#D6A84F]/18 blur-2xl" />
+                    <div className="absolute left-[10%] top-[26%] h-6 w-24 rotate-[-16deg] rounded-full bg-white/20" />
+                    <div className="absolute left-[16%] top-[40%] h-4 w-32 rotate-[-10deg] rounded-full bg-[#D6A84F]/30" />
 
-                    <div className="naijawin-float absolute inset-x-0 top-0 h-full">
+                    <div className="naijawin-car-splash absolute -inset-x-4 top-[-4%] h-[108%] md:-inset-x-8">
                       <Image
                         src={
                           featuredCompetition.image_url ||
@@ -221,7 +224,7 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="relative z-10 -mt-2 rounded-[1.75rem] border border-white/25 bg-white/95 p-6 text-[#052E24] shadow-[0_30px_80px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-7">
+                <div className="relative z-10 mt-5 rounded-[1.75rem] border border-white/25 bg-white/95 p-6 text-[#052E24] shadow-[0_30px_80px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-7">
                   <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                     <div className="inline-flex rounded-full bg-[#052E24]/6 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#052E24]">
                       {featuredCompetition.category}
