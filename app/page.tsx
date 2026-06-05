@@ -226,19 +226,10 @@ export default async function Home() {
                 </div>
 
                 <div className="rounded-full border border-white/20 bg-white/12 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white backdrop-blur">
-                  Auto Reveal
+                  Win Big Today
                 </div>
               </div>
 
-              <div className="pointer-events-none absolute left-4 top-[5.3rem] z-20 flex rotate-[-8deg] items-center gap-2 rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur naijawin-prize-float-a">
-                🚗 Cars
-              </div>
-              <div className="pointer-events-none absolute right-5 top-[7.2rem] z-20 flex rotate-[7deg] items-center gap-2 rounded-2xl bg-[#D6A84F] px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24] shadow-lg naijawin-prize-float-b">
-                💰 Cash
-              </div>
-              <div className="pointer-events-none absolute bottom-[11.5rem] right-4 z-20 rotate-[-6deg] rounded-2xl border border-white/10 bg-white/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur naijawin-prize-float-c">
-                🏠 Homes
-              </div>
 
               <div className="relative z-10 mt-5 min-h-[465px] overflow-hidden rounded-[2rem] border border-[#D6A84F]/18 bg-[#052E24]/35 p-3 shadow-inner">
                 {mobileHeroShowcase.map((competition, index) => {
