@@ -27,3 +27,44 @@ body {
   background: rgba(214, 168, 79, 0.28);
   color: var(--naijawin-green);
 }
+
+@keyframes naijawin-float {
+  0%, 100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1deg);
+  }
+}
+
+@keyframes naijawin-pulse {
+  0%, 100% {
+    opacity: 0.42;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes naijawin-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.naijawin-float {
+  animation: naijawin-float 4.8s ease-in-out infinite;
+}
+
+.naijawin-pulse {
+  animation: naijawin-pulse 3.2s ease-in-out infinite;
+}
+
+.naijawin-spin-slow {
+  animation: naijawin-spin-slow 18s linear infinite;
+}

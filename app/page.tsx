@@ -118,7 +118,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-[#FAF7EF] text-[#111827]">
       <section className="relative overflow-hidden bg-[#052E24] text-white">
-        <div className="absolute inset-0 opacity-90">
+        <div className="absolute inset-0 opacity-95">
           <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-[#D6A84F]/15 blur-3xl" />
           <div className="absolute right-0 top-10 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[#D6A84F]/10 blur-3xl" />
@@ -143,7 +143,7 @@ export default async function Home() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/competitions"
-                className="rounded-full bg-[#D6A84F] px-8 py-4 text-center font-black text-[#052E24] transition hover:bg-white"
+                className="rounded-full bg-[#D6A84F] px-8 py-4 text-center font-black text-[#052E24] shadow-[0_16px_35px_rgba(214,168,79,0.24)] transition hover:-translate-y-0.5 hover:bg-white"
               >
                 Browse Competitions
               </Link>
@@ -181,110 +181,107 @@ export default async function Home() {
 
           {featuredCompetition ? (
             <div className="relative z-10 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur-sm">
-              <div className="relative min-h-[560px] overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_55%,#0A4535_100%)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_22%,rgba(214,168,79,0.34),transparent_30%),radial-gradient(circle_at_82%_62%,rgba(255,255,255,0.16),transparent_28%)]" />
-                <div className="absolute -right-8 top-12 h-64 w-64 rounded-full bg-[#D6A84F]/20 blur-3xl" />
-                <div className="absolute right-10 top-24 h-16 w-16 rounded-full border border-white/15 bg-white/10 backdrop-blur" />
-                <div className="absolute right-32 top-16 h-6 w-6 rounded-full bg-[#D6A84F]" />
-                <div className="absolute right-20 top-20 text-4xl text-[#D6A84F] drop-shadow-lg">
+              <div className="relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(145deg,#063629_0%,#052E24_55%,#0A4535_100%)] p-5 md:p-7">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(214,168,79,0.36),transparent_26%),radial-gradient(circle_at_82%_58%,rgba(255,255,255,0.16),transparent_30%)]" />
+                <div className="naijawin-pulse absolute -right-10 top-10 h-72 w-72 rounded-full bg-[#D6A84F]/20 blur-3xl" />
+                <div className="naijawin-spin-slow absolute right-8 top-8 h-28 w-28 rounded-full border border-dashed border-[#D6A84F]/35" />
+                <div className="absolute right-28 top-14 text-5xl text-[#D6A84F] drop-shadow-lg">
                   ✦
                 </div>
+                <div className="absolute right-12 top-28 h-7 w-7 rounded-full bg-[#D6A84F] shadow-lg" />
+                <div className="absolute left-8 top-28 h-4 w-16 rotate-[-18deg] rounded-full bg-white/20" />
 
-                <div className="absolute left-5 top-5 rounded-full bg-[#D6A84F] px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#052E24] shadow-lg">
-                  Featured Competition
+                <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
+                  <div className="rounded-full bg-[#D6A84F] px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-[#052E24] shadow-lg">
+                    Featured Competition
+                  </div>
+
+                  <div className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                    {featuredSoldPercentage}% Sold
+                  </div>
                 </div>
 
-                <div className="absolute right-5 top-5 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                  {featuredSoldPercentage}% Sold
+                <div className="relative z-10 mt-5 rounded-[1.6rem] border border-white/10 bg-white/5 p-4 md:p-6">
+                  <div className="relative h-[260px] overflow-visible md:h-[330px]">
+                    <div className="absolute left-1/2 top-[58%] h-28 w-[82%] -translate-x-1/2 rounded-full bg-black/30 blur-2xl" />
+                    <div className="absolute left-1/2 top-[18%] h-44 w-44 -translate-x-1/2 rounded-full bg-[#D6A84F]/18 blur-2xl" />
+
+                    <div className="naijawin-float absolute inset-x-0 top-0 h-full">
+                      <Image
+                        src={
+                          featuredCompetition.image_url ||
+                          "/images/toyota-corolla.png"
+                        }
+                        alt={featuredCompetition.title}
+                        fill
+                        priority
+                        className="object-contain object-center drop-shadow-[0_34px_50px_rgba(0,0,0,0.52)]"
+                      />
+                    </div>
+                  </div>
                 </div>
 
-                <div className="absolute right-0 top-8 h-[47%] w-full md:w-[84%]">
-                  <div className="absolute inset-0 rounded-full bg-white/5 blur-2xl" />
-                  <Image
-                    src={
-                      featuredCompetition.image_url ||
-                      "/images/toyota-corolla.png"
-                    }
-                    alt={featuredCompetition.title}
-                    fill
-                    priority
-                    className="object-contain object-right drop-shadow-[0_30px_45px_rgba(0,0,0,0.45)]"
-                  />
-                </div>
-
-                <div className="absolute bottom-6 left-6 right-6 md:max-w-[62%]">
-                  <div className="rounded-[1.75rem] border border-white/25 bg-white/92 p-6 text-[#052E24] shadow-[0_30px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl md:p-7">
-                    <div className="mb-3 inline-flex rounded-full bg-[#052E24]/6 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#052E24]">
+                <div className="relative z-10 -mt-2 rounded-[1.75rem] border border-white/25 bg-white/95 p-6 text-[#052E24] shadow-[0_30px_80px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-7">
+                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <div className="inline-flex rounded-full bg-[#052E24]/6 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#052E24]">
                       {featuredCompetition.category}
                     </div>
 
-                    <div className="mb-5 flex items-center gap-3">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#052E24] text-3xl shadow-lg">
-                        <span className="drop-shadow-sm">
-                          {featuredCompetition.icon || "🎁"}
-                        </span>
-                      </div>
-
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500">
-                          From just
-                        </p>
-                        <p className="text-2xl font-black text-[#D6A84F]">
-                          {formatPrice(featuredCompetition.ticket_price)}
-                        </p>
-                      </div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-[#D6A84F]/15 px-3 py-1 text-sm font-black text-[#052E24]">
+                      <span>{featuredCompetition.icon || "🎁"}</span>
+                      <span>{formatPrice(featuredCompetition.ticket_price)}</span>
                     </div>
-
-                    <h2 className="text-3xl font-black leading-tight text-[#052E24] md:text-[2.15rem]">
-                      {featuredCompetition.title}
-                    </h2>
-
-                    <p className="mt-3 text-sm leading-7 text-gray-600 md:text-base">
-                      Transparent draw, verified winner announcement and secure
-                      local payment options.
-                    </p>
-
-                    <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-                      <div className="rounded-2xl bg-[#FAF7EF] p-4">
-                        <p className="text-gray-500">Draw Date</p>
-                        <p className="mt-1 font-black text-[#052E24]">
-                          {formatShortDate(featuredCompetition.draw_date)}
-                        </p>
-                      </div>
-
-                      <div className="rounded-2xl bg-[#FAF7EF] p-4">
-                        <p className="text-gray-500">Max Entries</p>
-                        <p className="mt-1 font-black text-[#052E24]">
-                          {featuredCompetition.max_entries.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-5">
-                      <div className="mb-2 flex justify-between text-sm text-gray-600">
-                        <span>Entries sold</span>
-                        <span className="font-black text-[#052E24]">
-                          {featuredSoldPercentage}%
-                        </span>
-                      </div>
-
-                      <div className="h-3 overflow-hidden rounded-full bg-[#E8E2D4]">
-                        <div
-                          className="h-full rounded-full bg-[#D6A84F]"
-                          style={{
-                            width: `${featuredSoldPercentage}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <Link
-                      href={`/competitions/${featuredCompetition.slug}`}
-                      className="mt-6 block rounded-full bg-[#052E24] px-8 py-4 text-center font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
-                    >
-                      Enter Competition
-                    </Link>
                   </div>
+
+                  <h2 className="text-3xl font-black leading-tight text-[#052E24] md:text-[2.15rem]">
+                    {featuredCompetition.title}
+                  </h2>
+
+                  <p className="mt-3 text-sm leading-7 text-gray-600 md:text-base">
+                    Transparent draw, verified winner announcement and secure
+                    local payment options.
+                  </p>
+
+                  <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
+                    <div className="rounded-2xl bg-[#FAF7EF] p-4">
+                      <p className="text-gray-500">Draw Date</p>
+                      <p className="mt-1 font-black text-[#052E24]">
+                        {formatShortDate(featuredCompetition.draw_date)}
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl bg-[#FAF7EF] p-4">
+                      <p className="text-gray-500">Max Entries</p>
+                      <p className="mt-1 font-black text-[#052E24]">
+                        {featuredCompetition.max_entries.toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-5">
+                    <div className="mb-2 flex justify-between text-sm text-gray-600">
+                      <span>Entries sold</span>
+                      <span className="font-black text-[#052E24]">
+                        {featuredSoldPercentage}%
+                      </span>
+                    </div>
+
+                    <div className="h-3 overflow-hidden rounded-full bg-[#E8E2D4]">
+                      <div
+                        className="h-full rounded-full bg-[#D6A84F]"
+                        style={{
+                          width: `${featuredSoldPercentage}%`,
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <Link
+                    href={`/competitions/${featuredCompetition.slug}`}
+                    className="mt-6 block rounded-full bg-[#052E24] px-8 py-4 text-center font-black text-white transition hover:bg-[#D6A84F] hover:text-[#052E24]"
+                  >
+                    Enter Competition
+                  </Link>
                 </div>
               </div>
             </div>
