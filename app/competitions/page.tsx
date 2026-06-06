@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-
+export const dynamic = "force-dynamic";
 type Competition = {
   id: string;
   slug: string;
