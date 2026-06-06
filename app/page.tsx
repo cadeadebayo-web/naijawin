@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+
 export const dynamic = "force-dynamic";
+
 type Competition = {
   id: string;
   slug: string;
@@ -100,6 +102,7 @@ function getCuratedCompetitions(competitions: Competition[], limit: number) {
 
 function getPrizeEmoji(category: string, title: string) {
   const prizeText = `${category} ${title}`.toLowerCase();
+
   if (prizeText.includes("car") || prizeText.includes("toyota")) {
     return "🚗";
   }
@@ -163,6 +166,7 @@ export default async function Home() {
   const homepageCompetitions = activeCompetitions.slice(0, 3);
   const homepageWinners = (winners || []) as Winner[];
   const homepageFaqs = (faqs || []) as FAQ[];
+
   const featuredSoldPercentage = featuredCompetition
     ? calculateSoldPercentage(
         featuredCompetition.entries_sold,
@@ -229,7 +233,6 @@ export default async function Home() {
                 </div>
               </div>
 
-
               <div className="relative z-10 mt-5 min-h-[465px] overflow-hidden rounded-[2rem] border border-[#D6A84F]/18 bg-[#052E24]/35 p-3 shadow-inner">
                 {mobileHeroShowcase.map((competition, index) => {
                   const soldPercentage = calculateSoldPercentage(
@@ -274,11 +277,15 @@ export default async function Home() {
                         />
                       </div>
 
-                      <div className="absolute bottom-4 left-4 right-4 z-30 rounded-[1.35rem] border border-white/14 bg-white/95 p-4 text-[#052E24] shadow-[0_18px_48px_rgba(0,0,0,0.28)] backdrop-blur">
+                      <div className="absolute -bottom-4 left-3 right-3 z-30 rounded-[1.35rem] border border-white/14 bg-white/95 p-3 text-[#052E24] shadow-[0_18px_48px_rgba(0,0,0,0.28)] backdrop-blur">
                         <div className="mb-2 flex items-center justify-between gap-2">
                           <span className="text-2xl">
-                            {getPrizeEmoji(competition.category, competition.title)}
+                            {getPrizeEmoji(
+                              competition.category,
+                              competition.title
+                            )}
                           </span>
+
                           <span className="rounded-full bg-[#D6A84F]/18 px-3 py-1 text-xs font-black">
                             {formatPrice(competition.ticket_price)}
                           </span>
@@ -291,6 +298,7 @@ export default async function Home() {
                         <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
                           <div className="rounded-2xl bg-[#FAF7EF] px-3 py-2">
                             <p className="text-gray-500">Draw</p>
+
                             <p className="font-black text-[#052E24]">
                               {formatShortDate(competition.draw_date)}
                             </p>
@@ -298,6 +306,7 @@ export default async function Home() {
 
                           <div className="rounded-2xl bg-[#FAF7EF] px-3 py-2">
                             <p className="text-gray-500">Entries</p>
+
                             <p className="font-black text-[#052E24]">
                               {competition.max_entries.toLocaleString()}
                             </p>
@@ -321,10 +330,12 @@ export default async function Home() {
                   <p className="font-black text-[#D6A84F]">Secure</p>
                   <p className="mt-0.5 text-white/65">Payments</p>
                 </div>
+
                 <div className="rounded-2xl border border-white/10 bg-white/10 px-2 py-3 backdrop-blur">
                   <p className="font-black text-[#D6A84F]">Verified</p>
                   <p className="mt-0.5 text-white/65">Winners</p>
                 </div>
+
                 <div className="rounded-2xl border border-white/10 bg-white/10 px-2 py-3 backdrop-blur">
                   <p className="font-black text-[#D6A84F]">Live</p>
                   <p className="mt-0.5 text-white/65">Draws</p>
@@ -489,6 +500,7 @@ export default async function Home() {
                       <div className="naijawin-chance-pulse mx-auto flex max-w-[310px] items-center justify-center rounded-full bg-[#D6A84F] px-5 py-3 text-center text-[11px] font-black uppercase tracking-[0.24em] text-[#052E24] shadow-[0_18px_42px_rgba(214,168,79,0.42)]">
                         Your Chance To Win
                       </div>
+
                       <div className="mx-auto mt-2 h-1.5 max-w-[180px] overflow-hidden rounded-full bg-white/12">
                         <div className="h-full w-2/3 rounded-full bg-[#D6A84F]" />
                       </div>
@@ -504,7 +516,9 @@ export default async function Home() {
 
                         <div className="inline-flex items-center gap-2 rounded-full bg-[#D6A84F]/15 px-3 py-1 text-xs font-black text-[#052E24]">
                           <span>{featuredCompetition.icon || "🎁"}</span>
-                          <span>{formatPrice(featuredCompetition.ticket_price)}</span>
+                          <span>
+                            {formatPrice(featuredCompetition.ticket_price)}
+                          </span>
                         </div>
                       </div>
 
@@ -520,6 +534,7 @@ export default async function Home() {
                       <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] md:mt-4 md:text-xs">
                         <div className="rounded-2xl bg-[#FAF7EF] p-3">
                           <p className="text-gray-500">Draw Date</p>
+
                           <p className="mt-1 font-black text-[#052E24]">
                             {formatShortDate(featuredCompetition.draw_date)}
                           </p>
@@ -527,6 +542,7 @@ export default async function Home() {
 
                         <div className="rounded-2xl bg-[#FAF7EF] p-3">
                           <p className="text-gray-500">Max Entries</p>
+
                           <p className="mt-1 font-black text-[#052E24]">
                             {featuredCompetition.max_entries.toLocaleString()}
                           </p>
@@ -536,6 +552,7 @@ export default async function Home() {
                       <div className="mt-3 md:mt-4">
                         <div className="mb-2 flex justify-between text-xs text-gray-600">
                           <span>Entries sold</span>
+
                           <span className="font-black text-[#052E24]">
                             {featuredSoldPercentage}%
                           </span>
@@ -580,6 +597,7 @@ export default async function Home() {
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="font-black text-[#D6A84F]">Enter Now & Win</p>
+
             <h2 className="mt-1 text-3xl font-black leading-tight text-[#052E24]">
               Win Life-Changing Prizes
             </h2>
@@ -614,6 +632,7 @@ export default async function Home() {
                 >
                   <div className="relative h-48 overflow-hidden bg-[#052E24]">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,rgba(214,168,79,0.28),transparent_32%)]" />
+
                     <Image
                       src={competition.image_url || "/images/toyota-corolla.png"}
                       alt={competition.title}
@@ -621,6 +640,7 @@ export default async function Home() {
                       sizes="100vw"
                       className="object-contain object-center p-3 drop-shadow-[0_22px_38px_rgba(0,0,0,0.34)]"
                     />
+
                     <div className="absolute left-4 top-4 rounded-full bg-[#D6A84F] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24]">
                       {competition.category}
                     </div>
@@ -631,6 +651,7 @@ export default async function Home() {
                       <span className="text-2xl">
                         {getPrizeEmoji(competition.category, competition.title)}
                       </span>
+
                       <span className="rounded-full bg-[#FAF7EF] px-3 py-1.5 text-xs font-black text-[#052E24]">
                         {formatPrice(competition.ticket_price)} per entry
                       </span>
@@ -643,10 +664,12 @@ export default async function Home() {
                     <div className="mt-4">
                       <div className="mb-2 flex justify-between text-xs text-gray-500">
                         <span>Sold</span>
+
                         <span className="font-black text-[#052E24]">
                           {soldPercentage}%
                         </span>
                       </div>
+
                       <div className="h-2.5 overflow-hidden rounded-full bg-[#E8E2D4]">
                         <div
                           className="h-full rounded-full bg-[#D6A84F]"
@@ -673,6 +696,7 @@ export default async function Home() {
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <p className="font-black text-[#D6A84F]">Curated High-Value Picks</p>
+
             <h2 className="mt-1 text-3xl font-black leading-tight text-[#052E24]">
               Browse Top Prizes
             </h2>
@@ -691,6 +715,7 @@ export default async function Home() {
             <h3 className="text-2xl font-black text-[#052E24]">
               Top prizes coming soon.
             </h3>
+
             <p className="mt-2 text-sm text-gray-600">
               Competitions from ₦700 and above will appear here.
             </p>
@@ -706,6 +731,7 @@ export default async function Home() {
               >
                 <div className="relative h-44 overflow-hidden">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(214,168,79,0.34),transparent_35%)]" />
+
                   <Image
                     src={competition.image_url || "/images/toyota-corolla.png"}
                     alt={competition.title}
@@ -713,6 +739,7 @@ export default async function Home() {
                     sizes="80vw"
                     className="object-contain object-center p-3 drop-shadow-[0_20px_35px_rgba(0,0,0,0.42)] transition duration-300"
                   />
+
                   <div className="absolute left-4 top-4 rounded-full bg-[#D6A84F] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#052E24]">
                     Top Prize
                   </div>
@@ -722,13 +749,16 @@ export default async function Home() {
                   <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#D6A84F]">
                     {competition.category}
                   </p>
+
                   <h3 className="line-clamp-2 text-xl font-black leading-tight">
                     {competition.title}
                   </h3>
+
                   <div className="mt-4 flex items-center justify-between gap-3">
                     <span className="rounded-full bg-white/10 px-3 py-2 text-xs font-black">
                       {formatPrice(competition.ticket_price)}
                     </span>
+
                     <Link
                       href={`/competitions/${competition.slug}`}
                       className="rounded-full bg-[#D6A84F] px-4 py-2 text-xs font-black text-[#052E24] transition active:scale-[0.98]"
