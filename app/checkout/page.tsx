@@ -22,11 +22,13 @@ type Competition = {
   status: string | null;
 };
 
-type PaystackInitializeResponse = {
+type PaymentInitializeResponse = {
   success: boolean;
   authorizationUrl?: string;
+  checkoutUrl?: string;
   accessCode?: string;
   reference?: string;
+  transactionReference?: string;
   message?: string;
 };
 
@@ -38,8 +40,8 @@ const paymentMethods = [
   },
   {
     id: "transfer",
-    title: "Bank Transfer",
-    description: "Create a pending order and pay by manual bank transfer.",
+    title: "Instant Bank Transfer",
+    description: "Pay through Monnify and receive automatic confirmation.",
   },
   {
     id: "ussd",
@@ -187,7 +189,7 @@ function CheckoutContent() {
     setCreatedOrderId("");
 
     const paymentProvider =
-      selectedMethod === "transfer" ? "manual-transfer" : "paystack";
+      selectedMethod === "transfer" ? "monnify" : "paystack";
 
     const temporaryReference = `NW-${Date.now()}`;
 
@@ -217,13 +219,13 @@ function CheckoutContent() {
     setCreatedOrderId(orderId);
     setOrderCreated(true);
 
-    if (selectedMethod === "transfer") {
-      setIsCreatingOrder(false);
-      return;
-    }
-
     try {
-      const response = await fetch("/api/paystack/initialize", {
+      const initializeEndpoint =
+        selectedMethod === "transfer"
+          ? "/api/monnify/initialize"
+          : "/api/paystack/initialize";
+
+      const response = await fetch(initializeEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -237,22 +239,34 @@ function CheckoutContent() {
         }),
       });
 
-      const result = (await response.json()) as PaystackInitializeResponse;
+      const result = (await response.json()) as PaymentInitializeResponse;
+      const redirectUrl =
+        selectedMethod === "transfer"
+          ? result.checkoutUrl
+          : result.authorizationUrl;
 
-      if (!response.ok || !result.success || !result.authorizationUrl) {
+      if (!response.ok || !result.success || !redirectUrl) {
         setIsCreatingOrder(false);
+        setOrderCreated(false);
         setErrorMessage(
-          result.message || "Unable to start Paystack payment."
+          result.message ||
+            (selectedMethod === "transfer"
+              ? "Unable to start Monnify bank transfer."
+              : "Unable to start Paystack payment.")
         );
         return;
       }
 
-
-      window.location.href = result.authorizationUrl;
+      window.location.href = redirectUrl;
     } catch (error) {
-      console.error("Paystack checkout error:", error);
+      console.error("Payment checkout error:", error);
       setIsCreatingOrder(false);
-      setErrorMessage("Unable to connect to Paystack. Please try again.");
+      setOrderCreated(false);
+      setErrorMessage(
+        selectedMethod === "transfer"
+          ? "Unable to connect to Monnify. Please try again."
+          : "Unable to connect to Paystack. Please try again."
+      );
     }
   }
 
@@ -319,8 +333,8 @@ function CheckoutContent() {
           </h1>
 
           <p className="mt-5 max-w-2xl text-lg text-white/75">
-            Choose bank transfer for manual payment, or use Paystack for card
-            and USSD checkout.
+            Choose instant bank transfer through Monnify, or use Paystack for
+            card and USSD checkout.
           </p>
         </div>
       </section>
@@ -330,7 +344,7 @@ function CheckoutContent() {
           <article className="overflow-hidden rounded-3xl bg-white shadow-lg">
             <div className="relative h-72 bg-[#052E24]">
               <Image
-                src={competition.image_url || "/images/toyota-corolla.jpg"}
+                src={competition.image_url || "/images/toyota-corolla.png"}
                 alt={competition.title}
                 fill
                 priority
@@ -372,8 +386,8 @@ function CheckoutContent() {
             </h2>
 
             <p className="mt-3 leading-7 text-gray-600">
-              Bank transfer creates a manual pending order. Card and USSD will
-              redirect you to Paystack checkout.
+              Bank transfer redirects you to Monnify for an automatically
+              confirmed transfer. Card and USSD continue through Paystack.
             </p>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -429,58 +443,54 @@ function CheckoutContent() {
             <article className="rounded-3xl bg-white p-6 shadow-lg md:p-8">
               <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
                 <div>
-                  <p className="font-black text-[#D6A84F]">Bank Transfer</p>
+                  <p className="font-black text-[#D6A84F]">
+                    Instant Bank Transfer
+                  </p>
 
                   <h2 className="mt-2 text-3xl font-black text-[#052E24]">
                     Transfer exactly {amountLabel}
                   </h2>
 
                   <p className="mt-3 leading-7 text-gray-600">
-                    This creates a pending order. Admin will confirm payment
-                    after seeing your bank transfer.
+                    After you continue, Monnify will display a secure temporary
+                    bank account for this order. Your payment will be confirmed
+                    automatically after the transfer is received.
                   </p>
                 </div>
 
-                <div className="rounded-full bg-[#FAF7EF] px-4 py-2 text-sm font-black text-[#052E24]">
-                  Manual confirmation
+                <div className="rounded-full bg-green-50 px-4 py-2 text-sm font-black text-green-700">
+                  Automatic confirmation
                 </div>
               </div>
 
               <div className="mt-8 rounded-3xl border border-dashed border-[#D6A84F] bg-[#FAF7EF] p-6">
-                <div className="grid gap-5 md:grid-cols-2">
+                <div className="grid gap-5 md:grid-cols-3">
                   <div>
-                    <p className="text-sm text-gray-500">Bank Name</p>
+                    <p className="text-sm text-gray-500">Payment provider</p>
                     <p className="mt-1 text-xl font-black text-[#052E24]">
-                      Wema Bank
+                      Monnify
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-500">Account Number</p>
-                    <p className="mt-1 text-xl font-black text-[#052E24]">
-                      1234567890
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-sm text-gray-500">Account Name</p>
-                    <p className="mt-1 text-xl font-black text-[#052E24]">
-                      NAIJAWIN / ORDER PREVIEW
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-sm text-gray-500">Amount</p>
+                    <p className="text-sm text-gray-500">Order amount</p>
                     <p className="mt-1 text-xl font-black text-[#052E24]">
                       {amountLabel}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-gray-500">Confirmation</p>
+                    <p className="mt-1 text-xl font-black text-[#052E24]">
+                      Automatic
                     </p>
                   </div>
                 </div>
 
                 <div className="mt-6 rounded-2xl bg-white p-4 text-sm leading-6 text-gray-600">
-                  This is still a preview account number. We can later replace
-                  it with a real business bank account or Paystack dedicated
-                  virtual account flow.
+                  The temporary account is created only after you click the
+                  payment button. Transfer the exact amount shown before the
+                  payment session expires.
                 </div>
               </div>
             </article>
@@ -652,7 +662,7 @@ function CheckoutContent() {
 
           {orderCreated && selectedMethod === "transfer" && (
             <div className="mt-6 rounded-2xl bg-green-50 p-4 text-sm font-bold text-green-700">
-              Pending bank transfer order created successfully.
+              Order created. Redirecting to Monnify for bank transfer...
               <br />
               Order ID: {createdOrderId.slice(0, 8)}
             </div>
@@ -680,25 +690,25 @@ function CheckoutContent() {
             {!userId
               ? "Login Required"
               : isCreatingOrder && selectedMethod === "transfer"
-              ? "Creating Order..."
+              ? "Connecting to Monnify..."
               : isCreatingOrder
               ? "Connecting to Paystack..."
               : orderCreated && selectedMethod === "transfer"
-              ? "Order Created"
+              ? "Redirecting to Monnify..."
               : selectedMethod === "transfer"
-              ? "Create Bank Transfer Order"
+              ? "Continue to Instant Bank Transfer"
               : "Continue to Paystack"}
           </button>
 
           <p className="mt-4 text-center text-xs leading-5 text-gray-500">
-            Bank transfer orders remain pending until admin confirms payment.
-            Card and USSD payments redirect to Paystack.
+            Bank transfers are confirmed automatically through Monnify. Card
+            and USSD payments continue through Paystack.
           </p>
 
           <div className="mt-6 rounded-2xl bg-[#FAF7EF] p-4 text-sm leading-6 text-gray-600">
             <span className="font-black text-[#052E24]">Security note:</span>{" "}
-            Card and USSD payments are handled by Paystack. Bank transfer is
-            confirmed manually by admin.
+            Card and USSD payments are handled by Paystack. Instant bank
+            transfers are handled and verified by Monnify.
           </div>
         </aside>
       </section>
